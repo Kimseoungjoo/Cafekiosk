@@ -69,6 +69,7 @@ public class CafeDAO {
 			e.printStackTrace();
 		} finally {
 			try {
+				rs.close();
 				pstmt.close();
 				con.close();
 			} catch (SQLException e) {
