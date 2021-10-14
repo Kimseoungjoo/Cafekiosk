@@ -107,27 +107,34 @@ public class CafeNewUser extends JFrame implements ActionListener{
 			dto.setNickname(nickname.getText());
 			dto.setTel(tel.getText());
 			
-			boolean resultFlag = dao.insertUsert(dto);
+			int result = dao.checkOverTel(dto);
 			
+			System.out.println(result);
 			
-			
-			if(resultFlag == true) {
-				name.setText("");
-				nickname.setText("");
-				tel.setText("");
-			
-				/*
-				 * 팝업창 띄우는 방법 참조 :
-				 * https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=sks6624&logNo=150173231530
-				 */
-				JOptionPane.showMessageDialog(null, "회원가입에 성공했습니다.", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-				
-				CafeMain main = new CafeMain();
-				main.setVisible(true);
-				setVisible(false);
+			if(result == 0) {
+				boolean resultFlag = dao.insertUsert(dto);
+				if(resultFlag == true) {
+					name.setText("");
+					nickname.setText("");
+					tel.setText("");
+					
+					/*
+					 * 팝업창 띄우는 방법 참조 :
+					 * https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=sks6624&logNo=150173231530
+					 */
+					JOptionPane.showMessageDialog(null, "회원가입에 성공했습니다.", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+					
+					CafeMain main = new CafeMain();
+					main.setVisible(true);
+					setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "회원가입에 실패했습니다.", "INFORMATION_MESSAGE", JOptionPane.ERROR_MESSAGE);
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, "회원가입에 실패했습니다.", "INFORMATION_MESSAGE", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "이미 존재하는 전화번호 입니다.", "INFORMATION_MESSAGE", JOptionPane.ERROR_MESSAGE);
 			}
+			
+			
 		} else if(cmd.equals("취소")) {
 			name.setText("");
 			nickname.setText("");

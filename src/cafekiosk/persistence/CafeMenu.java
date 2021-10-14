@@ -27,6 +27,10 @@ public class CafeMenu extends JFrame {
 	private JScrollPane scrollPane;
 	private JPanel panel_1;
 	private JButton btnGrapeAde,btnGrapefruitsAde,btnLemonAde;
+	private JPanel panel_2;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
+	private JButton btnNewButton_2;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -82,7 +86,8 @@ public class CafeMenu extends JFrame {
 		
 		scrollPane = new JScrollPane();// 메뉴 창 띄우는 패널
 		contentPane.add(scrollPane);
-		scrollPane.setViewportView(adeMenuPanel()); 
+		
+		
 		
 //		panel_1 = new JPanel();
 //		panel_1.setLayout(new GridLayout(0, 3, 0, 0));
@@ -102,23 +107,23 @@ public class CafeMenu extends JFrame {
 		setSize(500,300);
 		
 	}
-	public JPanel adeMenuPanel() {
-		panel_1 = new JPanel();
-		panel_1.setLayout(new GridLayout(0, 3, 0, 0));
-		panel_1.setBounds(0, 0, 200, 350);
-		btnGrapeAde = new JButton("");
-		btnGrapeAde.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/grapeade.png")));
-		panel_1.add(btnGrapeAde);
-		
-		btnGrapefruitsAde = new JButton("");
-		btnGrapefruitsAde.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/grapefruitade.png")));
-		panel_1.add(btnGrapefruitsAde);
-		
-		btnLemonAde = new JButton("");
-		btnLemonAde.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/lemon.png")));
-		panel_1.add(btnLemonAde);
-		return panel_1;
-	}
+//	public JPanel coffeeMenuPanel() {
+//		panel_2 = new JPanel();
+//		panel_2.setLayout(new GridLayout(0, 3, 0, 0));
+//		panel_2.setBounds(0, 0, 200, 350);
+//		btnamericano = new JButton("");
+//		btnamericano.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/americano.png")));
+//		panel_2.add(btnamericano);
+//		
+//		btncafelatte = new JButton("");
+//		btncafelatte.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/cafelatte.png")));
+//		panel_2.add(btncafelatte);
+//		
+//		btnespresso = new JButton("");
+//		btnespresso.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/espresso.png")));
+//		panel_2.add(btnespresso);
+//		return panel_2;
+//	}
 	
 	
 
