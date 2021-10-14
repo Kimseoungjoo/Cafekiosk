@@ -27,8 +27,9 @@ public class CafeMenu extends JFrame implements ActionListener{
 	private JScrollPane scrollPane;
 	private JPanel panel_1;
 	private JButton btnGrapeAde,btnGrapefruitsAde,btnLemonAde,btnamericano
-	,btncafelatte,btnespresso;
+	,btncafelatte,btnespresso,btnEgr,btnPam,btnRoob;
 	private JPanel panel_2;
+	private JPanel panel_3;
 //	private JButton btnNewButton;
 //	private JButton btnNewButton_1;
 //	private JButton btnNewButton_2;
@@ -74,6 +75,7 @@ public class CafeMenu extends JFrame implements ActionListener{
 		
 		 btnTea = new JButton("티");
 		 btnTea.setActionCommand("TEA");
+		 btnTea.addActionListener(this);
 		panel.add(btnTea);
 		
 		 btnDessert = new JButton("디저트");
@@ -136,6 +138,9 @@ public class CafeMenu extends JFrame implements ActionListener{
 		else if(cmd.equals("ADE")){
 			scrollPane.setViewportView(adeMenuPanel()); 
 		}
+		else if(cmd.equals("TEA")) {
+			scrollPane.setViewportView(TeaMenuPanel()); 
+		}
 	}
 
 	public JPanel coffeeMenuPanel() {
@@ -156,6 +161,23 @@ public class CafeMenu extends JFrame implements ActionListener{
 		return panel_2;
 	}
 
+	public JPanel TeaMenuPanel() {
+		panel_3 = new JPanel();
+		panel_3.setLayout(new GridLayout(0, 3, 0, 0));
+		panel_3.setBounds(0, 0, 200, 350);
+		btnEgr = new JButton("");
+		btnEgr.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/earlgray.jpg")));
+		panel_3.add(btnEgr);
+		
+		btnPam = new JButton("");
+		btnPam.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/Paper.jpg")));
+		panel_3.add(btnPam);
+		
+		btnRoob = new JButton("");
+		btnRoob.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/roibos.jpg")));
+		panel_3.add(btnRoob);
+		return panel_3;
+	}
 	
 	
 
