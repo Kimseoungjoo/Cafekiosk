@@ -29,6 +29,7 @@ public class MemOrder extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	JLabel name; 
 	UserDTO dto;
 	CafeDAO dao;
 
@@ -52,6 +53,7 @@ public class MemOrder extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public MemOrder() {
+		setTitle("회원주문");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -62,9 +64,14 @@ public class MemOrder extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		JLabel lblNewLabel_1 = new JLabel("포인트");
-		panel.add(lblNewLabel_1);
+		
+		
+		name = new JLabel("손");
+		panel.add(name);
+		
+		
+		JLabel lblNewLabel_3 = new JLabel("님. 반갑습니다. 당신의 포인트는 다음과 같습니다.");
+		panel.add(lblNewLabel_3);
 
 		textField_1 = new JTextField();
 		panel.add(textField_1);
@@ -75,12 +82,15 @@ public class MemOrder extends JFrame implements ActionListener {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 
 		JButton btnNewButton = new JButton("포인트 사용 결제");
+		btnNewButton.addActionListener(this);
 		panel_1.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("포인트 미사용 결제");
+		btnNewButton_1.addActionListener(this);
 		panel_1.add(btnNewButton_1);
 
 		JButton btnNewButton_2 = new JButton("이전");
+		btnNewButton_2.addActionListener(this);
 		panel_1.add(btnNewButton_2);
 
 		JPanel panel_2 = new JPanel();
@@ -108,11 +118,13 @@ public class MemOrder extends JFrame implements ActionListener {
 			
 			textField.getText();
 
+			
 			dto = new UserDTO();
 			dto = dao.getPoint(textField.getText());
-			
-	
+		
 			if(dto != null) {
+				
+				name.setText(dto.getName());
 				textField_1.setText(dto.getPoint()+"");
 				
 			} else {
@@ -120,6 +132,7 @@ public class MemOrder extends JFrame implements ActionListener {
 				
 			}
 			
+		
 		
 
 		}
