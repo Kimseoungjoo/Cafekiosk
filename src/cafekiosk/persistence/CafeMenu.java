@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CafeMenu extends JFrame {
+public class CafeMenu extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JButton btnCoffee,btnAde,btnTea,btnDessert,btnEtc;
@@ -58,31 +58,32 @@ public class CafeMenu extends JFrame {
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT,1,1));
 		
 		 btnCoffee = new JButton("커피"); // 커피 메뉴
-		 btnCoffee.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 	}
-		 });
+		 btnCoffee.setActionCommand("COFFEE");
+		 btnCoffee.addActionListener(this);
 		panel.add(btnCoffee);// 메뉴창 패널에 추가 
 		
 		btnAde = new JButton("에이드"); // 에이드 메뉴 
-		btnAde.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnAde.setActionCommand("ADE");
+		btnAde.addActionListener(this);
 		panel.add(btnAde);
 		
 		 btnTea = new JButton("티");
+		 btnTea.setActionCommand("TEA");
 		panel.add(btnTea);
 		
 		 btnDessert = new JButton("디저트");
+		 btnDessert.setActionCommand("DESSERT");
+		 btnDessert.addActionListener(this);
 		panel.add(btnDessert);
 		
 		 btnEtc = new JButton("기타");
+		 btnEtc.setActionCommand("ETC");
+		 btnEtc.addActionListener(this);
 		panel.add(btnEtc);
 		
 		scrollPane = new JScrollPane();// 메뉴 창 띄우는 패널
 		contentPane.add(scrollPane);
-		scrollPane.setViewportView(adeMenuPanel()); 
+		
 		
 //		panel_1 = new JPanel();
 //		panel_1.setLayout(new GridLayout(0, 3, 0, 0));
@@ -102,7 +103,7 @@ public class CafeMenu extends JFrame {
 		setSize(500,300);
 		
 	}
-	public JPanel adeMenuPanel() {
+	public JPanel adeMenuPanel() {// PANEL이라고 보시면됩니다
 		panel_1 = new JPanel();
 		panel_1.setLayout(new GridLayout(0, 3, 0, 0));
 		panel_1.setBounds(0, 0, 200, 350);
@@ -118,6 +119,19 @@ public class CafeMenu extends JFrame {
 		btnLemonAde.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/lemon.png")));
 		panel_1.add(btnLemonAde);
 		return panel_1;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String cmd = e.getActionCommand();
+		if(cmd.equals("ADE")) {
+			scrollPane.setViewportView(adeMenuPanel()); 
+		}
+//		else if(cmd.equals("ADE")){
+//			scrollPane.setViewportView(); 
+//		}else if() {
+//			
+//		}
 	}
 	
 	
