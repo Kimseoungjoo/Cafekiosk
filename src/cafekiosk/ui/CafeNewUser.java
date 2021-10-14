@@ -6,12 +6,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cafekiosk.domain.UserDTO;
+import cafekiosk.persistence.UserDAO;
+
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -93,14 +98,44 @@ public class CafeNewUser extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		System.out.println(cmd);
 		
 		if(cmd.equals("회원가입")) {
+			UserDTO dto = new UserDTO();
+			UserDAO dao = new UserDAO();
 			
+			dto.setName(name.getText());
+			dto.setNickname(nickname.getText());
+			dto.setTel(tel.getText());
+			
+			boolean resultFlag = dao.insertUsert(dto);
+			
+			
+			
+			if(resultFlag == true) {
+				name.setText("");
+				nickname.setText("");
+				tel.setText("");
+			
+				/*
+				 * 팝업창 띄우는 방법 참조 :
+				 * https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=sks6624&logNo=150173231530
+				 */
+				JOptionPane.showMessageDialog(null, "회원가입에 성공했습니다.", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+				
+				CafeMain main = new CafeMain();
+				main.setVisible(true);
+				setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "회원가입에 실패했습니다.", "INFORMATION_MESSAGE", JOptionPane.ERROR_MESSAGE);
+			}
 		} else if(cmd.equals("취소")) {
 			name.setText("");
 			nickname.setText("");
 			tel.setText("");
+			
+			CafeMain main = new CafeMain();
+			main.setVisible(true);
+			setVisible(false);
 		}
 	}
 

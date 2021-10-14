@@ -80,7 +80,6 @@ public class CafeMain extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		System.out.println(cmd);
 		if(cmd.equals("회원가입")) {
 			/*
 			 * 화면 프레임 연결 코드 참조 :
