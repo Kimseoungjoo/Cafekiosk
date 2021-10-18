@@ -52,26 +52,24 @@ public class OrderDAO {
 		return list;
 
 	}
-	
-	public boolean payPoint(int point) {
-		
+
+	// orderTBL 전체 데이터 delete
+	public boolean deleteOrderTBL() {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean insertFlag = false;
-		
+		boolean deleteFlag = false;
+
 		try {
 			con = CafeDAO.getConnection();
-			String sql = "insert into orderTBL(point) values(?)";
+			String sql = "delete orderTBL";
 			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setInt(1, point);
-					
 			int result = pstmt.executeUpdate();
-			
-			if(result > 0) {
-				insertFlag = true;
+
+			if (result > 0) {
+				deleteFlag = true;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -82,53 +80,8 @@ public class OrderDAO {
 				e2.printStackTrace();
 			}
 		}
-		return insertFlag;
-		
+		return deleteFlag;
+
 	}
-	
-//	public static OrderDTO getPoint() {
-//
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//
-//
-//		try {
-//
-//			con = CafeDAO.getConnection();
-//			String sql = "select point from orderTBL";
-//			pstmt = con.prepareStatement(sql);
-//			rs = pstmt.executeQuery();
-//
-//			if (rs.next()) {
-//
-//				OrderDTO dto = new OrderDTO();
-//				dto.setNo(rs.getInt("no"));
-//				dto.setName(rs.getString("name"));
-//				dto.setPrice(rs.getInt("price"));
-//				dto.setCount(rs.getInt("count"));
-//
-//				
-//
-//			}
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				rs.close();
-//				pstmt.close();
-//				con.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//
-//		return list;
-//
-//	}
-	
-	
-	
 
 }
