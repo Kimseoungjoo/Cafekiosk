@@ -22,6 +22,11 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import cafekiosk.domain.UserDTO;
 import cafekiosk.persistence.CafeDAO;
+import cafekiosk.persistence.OrderDAO;
+import lombok.Getter;
+import lombok.Setter;
+
+
 
 public class MemOrder extends JFrame implements ActionListener {
 
@@ -31,6 +36,17 @@ public class MemOrder extends JFrame implements ActionListener {
 	JLabel name; 
 	UserDTO dto;
 	CafeDAO dao;
+	OrderDAO odao;
+	private JTextField textField_2;
+	private String point;
+
+	public String getPoint() {
+		return point;
+	}
+
+	public void setPoint(String point) {
+		this.point = point;
+	}
 
 	/**
 	 * Launch the application.
@@ -76,6 +92,14 @@ public class MemOrder extends JFrame implements ActionListener {
 		panel.add(textField_1);
 		textField_1.addActionListener(this);
 		textField_1.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("몇 포인트를 사용하시겠습니까?");
+		panel.add(lblNewLabel_1);
+		
+		textField_2 = new JTextField();
+		panel.add(textField_2);
+		textField_2.addActionListener(this);
+		textField_2.setColumns(10);
 
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
@@ -111,6 +135,8 @@ public class MemOrder extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		
 
 		if (e.getActionCommand().equals("포인트확인")) {
 			
@@ -125,20 +151,31 @@ public class MemOrder extends JFrame implements ActionListener {
 				
 				name.setText(dto.getName());
 				textField_1.setText(dto.getPoint()+"");
+				setPoint(dto.getPoint()+"");
 				
 			} else {
 				JOptionPane.showMessageDialog(getParent(), "등록되지 않았습니다. 회원가입해주세요");
 				
 			}
 			
-<<<<<<< HEAD
-	
-=======
-		
-		
 
->>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
-		}
+		} else if(e.getActionCommand().equals("포인트 사용 결제")) {
+			
+			point = textField_2.getText();
+			System.out.println(point);
+			
+			System.out.println(odao.payPoint(Integer.parseInt(point)));
+			
+			MemPayment mp = new MemPayment();
+			mp.setVisible(true);
+			this.setVisible(false);
+			
+			
+		} else if (e.getActionCommand().equals("포인트 미사용 결제")) {
+			
+		} else if(e.getActionCommand().equals("이전")) {
+			
+		} 
 
 	}
 

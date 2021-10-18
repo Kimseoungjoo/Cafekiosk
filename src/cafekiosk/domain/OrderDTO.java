@@ -18,5 +18,6 @@ public class OrderDTO {
 	private String name;
 	private int price;
 	private int count;
+	private int point;
 
 }
