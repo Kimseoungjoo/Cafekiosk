@@ -340,7 +340,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 		btnamericano = new JButton("");
 		btnamericano.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/americano.png")));
 		panel_2.add(btnamericano);
-
+		btnamericano.setActionCommand("아메리카노");
+		
+		
 		btncafelatte = new JButton("");
 		btncafelatte.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/cafelatte.png")));
 		panel_2.add(btncafelatte);
