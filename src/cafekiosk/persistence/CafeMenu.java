@@ -217,9 +217,6 @@ public class CafeMenu extends JFrame implements ActionListener {
 						count +=1; 
 						 dao = new CafeDAO();
 						vetMenu = new Vector<CafeDTO>();
-//						dto = new CafeDTO();
-//						dto = dao.getList(cmd);
-//						String list[] = { dto.getType(), dto.getName() };
 						vetMenu= dao.getList(cmd);
 						String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
 						model.addRow(list);
@@ -243,18 +240,15 @@ public class CafeMenu extends JFrame implements ActionListener {
 				if (count == 0) {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("자몽에이드")) {
+						count +=1; 
 						CafeDAO dao = new CafeDAO();
 						dto = new CafeDTO();
-//						dto = dao.getList(cmd);
 						vetMenu = new Vector<CafeDTO>();
 						vetMenu = dao.getList(cmd);
 //						String list[] = { dto.getType(), dto.getName() };
 						String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
 						model.addRow(list);
-//						countAde[i]+=1;
-//						panel_5.add(disCountButton(i));
-//						panel_5.add(lblAde2);
-//						panel_5.add(plusCountButton(i));
+
 
 					}
 				} else {
@@ -275,6 +269,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 				if (count == 0) {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("레몬에이드")) {
+						count +=1; 
 						CafeDAO dao = new CafeDAO();
 						dto = new CafeDTO();
 //						dto = dao.getList(cmd);
