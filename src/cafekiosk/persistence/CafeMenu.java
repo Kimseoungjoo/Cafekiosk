@@ -29,11 +29,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.CafeDTO;
-<<<<<<< HEAD
 import cafekiosk.domain.OrderDTO;
-=======
 import cafekiosk.ui.CafePayment;
->>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -182,8 +179,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 					public void actionPerformed(ActionEvent e) {
 						table.setValueAt(count+"", menuNum, 2);
 						lblcount.setText(count+"");
+						int no = menuNum+1;
 						ordto = new OrderDTO();
-						ordto.setNo(menuNum);
+						ordto.setNo(no);
 						ordto.setName(vetMenu.get(0).getName());
 						ordto.setPrice(count*vetMenu.get(0).getPrice());
 						ordto.setCount(count);
