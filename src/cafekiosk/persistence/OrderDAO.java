@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import cafekiosk.domain.CafeDTO;
 import cafekiosk.domain.OrderDTO;
 
 public class OrderDAO {
@@ -82,6 +83,11 @@ public class OrderDAO {
 		}
 		return deleteFlag;
 
+	}
+
+	public CafeDTO getRow(int i) {
+		
+		return null;
 	}
 
 }
