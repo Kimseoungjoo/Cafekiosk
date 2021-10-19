@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.CafeDTO;
+import cafekiosk.ui.CafePayment;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -156,6 +157,16 @@ public class CafeMenu extends JFrame implements ActionListener {
 				GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 				gbc_btnNewButton_2.gridx = 1;
 				gbc_btnNewButton_2.gridy = 1;
+				btnNewButton_2.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						CafePayment payMent = new CafePayment();
+						payMent.setVisible(true);
+						setVisible(false);
+						
+					}
+				});
 				panel_4.add(btnNewButton_2, gbc_btnNewButton_2);
 				
 				// db에 사용자 이용 값 넣기/ 수량 넣기  
