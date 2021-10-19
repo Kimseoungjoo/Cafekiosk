@@ -49,7 +49,6 @@ public class CafeMenu extends JFrame implements ActionListener {
    
    private DefaultTableModel model;
    private JPanel panel_5;
-   
    private JButton btnNewButton;
    private JButton btnNewButton_1;
    private int count = 0, menuNum = 0;
@@ -347,7 +346,6 @@ public class CafeMenu extends JFrame implements ActionListener {
       panel_3.setBounds(0, 0, 200, 350);
       btnEgr = new JButton("");
       btnEgr.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/earlgray.jpg")));
-      panel_3.add(btnEgr);
       btnEgr.setActionCommand("얼그레이");
       btnEgr.addActionListener(new ActionListener() {
 		
@@ -358,8 +356,10 @@ public class CafeMenu extends JFrame implements ActionListener {
 	               if (cmd.equals("얼그레이")) {
 	                  CafeDAO dao = new CafeDAO();
 	                  dto = new CafeDTO();
+
 	                  vetMenu = new Vector<CafeDTO>();
 	                  vetMenu = dao.getList(cmd);
+
 	                  String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
 	                  model.addRow(list);
 
@@ -368,14 +368,14 @@ public class CafeMenu extends JFrame implements ActionListener {
 	               JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
 	            }
 	            panel_5.revalidate();
-	         }
+	         
 			
-		
+		}
 	});
+      panel_3.add(btnEgr);
 
       btnPam = new JButton("");
       btnPam.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/Paper.jpg")));
-      panel_3.add(btnPam);
       btnPam.setActionCommand("페퍼민트");
       btnPam.addActionListener(new ActionListener() {
 		
@@ -389,10 +389,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 
 	                  vetMenu = new Vector<CafeDTO>();
 	                  vetMenu = dao.getList(cmd);
-
+	                  
 	                  String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
 	                  model.addRow(list);
-
 
 	               }
 	            } else {
@@ -401,11 +400,12 @@ public class CafeMenu extends JFrame implements ActionListener {
 	            panel_5.revalidate();
 	         }
 			
+		
 	});
+      panel_3.add(btnPam);
 
       btnRoob = new JButton("");
       btnRoob.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/roibos.jpg")));
-      panel_3.add(btnRoob);
       btnRoob.setActionCommand("루이보스");
       btnRoob.addActionListener(new ActionListener() {
 		
@@ -419,10 +419,10 @@ public class CafeMenu extends JFrame implements ActionListener {
 
 	                  vetMenu = new Vector<CafeDTO>();
 	                  vetMenu = dao.getList(cmd);
-
+	                  
+	                                   
 	                  String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
 	                  model.addRow(list);
-
 
 	               }
 	            } else {
@@ -431,7 +431,10 @@ public class CafeMenu extends JFrame implements ActionListener {
 	            panel_5.revalidate();
 	         }
 			
+		
 	});
+      panel_3.add(btnRoob);
+      
       return panel_3;
    }
 

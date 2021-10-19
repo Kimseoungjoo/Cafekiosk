@@ -1,12 +1,10 @@
+package cafekiosk.ui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import cafekiosk.ui.MemOrder;
-import cafekiosk.ui.UnmemPayment;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -70,11 +68,11 @@ public class CafePayment extends JFrame implements ActionListener {
 			
 			MemOrder mo = new MemOrder();
 			mo.setVisible(true);
-			frame.setVisible(false);
+			this.setVisible(false);
 		} else if (cmd.equals("비회원주문")) {
 			UnmemPayment up = new UnmemPayment();
 			up.setVisible(true);
-			frame.setVisible(false);
+			this.setVisible(false);
 			
 		}
 
