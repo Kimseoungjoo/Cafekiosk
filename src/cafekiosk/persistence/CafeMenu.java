@@ -47,7 +47,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 	private JButton btnGrapeAde, btnGrapefruitsAde, btnLemonAde, btnamericano, btncafelatte, btnespresso, btnEgr,
 			btnPam, btnRoob;
 	private JTable table;
-	private String orderList[] = { "타입", "음료","수량" };
+	private String orderList[] = { "음료","가격","수량" };
 	
 	private DefaultTableModel model;
 	private JPanel panel_5;
@@ -177,6 +177,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						table.setValueAt(count*vetMenu.get(0).getPrice(), menuNum, 1);
 						table.setValueAt(count+"", menuNum, 2);
 						lblcount.setText(count+"");
 						int no = menuNum+1;
@@ -189,6 +190,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 						if(flag) {
 							JOptionPane.showMessageDialog(getParent(), "선택되었습니다");
 						}
+						vetMenu = new Vector<CafeDTO>();
 						menuNum += 1;
 						count = 0;
 					}
@@ -217,8 +219,8 @@ public class CafeMenu extends JFrame implements ActionListener {
 						count +=1; 
 						dao = new CafeDAO();
 						vetMenu = new Vector<CafeDTO>();
-						vetMenu = dao.getList(cmd);
-						String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
+						vetMenu= dao.getList(cmd);
+						String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 0+""};
 						model.addRow(list);
 						
 					}
@@ -241,7 +243,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("자몽에이드")) {
 						count +=1; 
-						dao = new CafeDAO();
+						 dao = new CafeDAO();
 						dto = new CafeDTO();
 						vetMenu = new Vector<CafeDTO>();
 						vetMenu = dao.getList(cmd);
@@ -270,7 +272,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("레몬에이드")) {
 						count +=1; 
-						dao = new CafeDAO();
+						 dao = new CafeDAO();
 						dto = new CafeDTO();
 //						dto = dao.getList(cmd);
 						vetMenu = new Vector<CafeDTO>();
@@ -349,28 +351,32 @@ public class CafeMenu extends JFrame implements ActionListener {
 		panel_2.add(btnamericano);
 		btnamericano.setActionCommand("아메리카노");
 		btnamericano.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
 
-				if ( count== 0) {
-					String cmd = e.getActionCommand();
-					if (cmd.equals("아메리카노")) {
-						count +=1; 
-						dao = new CafeDAO();
-						vetMenu = new Vector<CafeDTO>();
-						vetMenu = dao.getList(cmd);
-						String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
-						model.addRow(list);
-						
-					}
-				} else {
-					JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
+		     @Override
+		public void actionPerformed(ActionEvent e) {
+
+			if ( count== 0) {
+				String cmd = e.getActionCommand();
+				if (cmd.equals("아메리카노")) {
+					count +=1; 
+					 dao = new CafeDAO();
+					vetMenu = new Vector<CafeDTO>();
+					vetMenu= dao.getList(cmd);
+					String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
+					model.addRow(list);
+					
 				}
-				panel_5.revalidate();
+			} else {
+				JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
 			}
-		});
-		
+			panel_5.revalidate();
+		}
+	});
+
+
+				
+
+	
 		btncafelatte = new JButton("");
 		btncafelatte.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/cafelatte.png")));
 		panel_2.add(btncafelatte);
