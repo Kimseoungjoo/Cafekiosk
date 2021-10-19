@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.OrderDTO;
+import cafekiosk.persistence.CafeMenu;
 import cafekiosk.persistence.OrderDAO;
 
 import javax.swing.JLabel;
@@ -156,6 +157,10 @@ public class UnmemPayment extends JFrame implements ActionListener {
 		
 		
 	} else {
+		
+		CafeMenu cm = new CafeMenu();
+		cm.setVisible(true);
+		this.setVisible(false);
 		
 	}
 		
