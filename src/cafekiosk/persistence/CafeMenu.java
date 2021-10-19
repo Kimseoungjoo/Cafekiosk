@@ -29,11 +29,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.CafeDTO;
-<<<<<<< HEAD
 import cafekiosk.domain.OrderDTO;
-=======
 import cafekiosk.ui.CafePayment;
->>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
