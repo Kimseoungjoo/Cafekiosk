@@ -52,8 +52,7 @@ public class OrderDAO {
 		return list;
 
 	}
-
-	// orderTBL 전체 데이터 delete
+	
 	public boolean deleteOrderTBL() {
 
 		Connection con = null;
@@ -83,5 +82,7 @@ public class OrderDAO {
 		return deleteFlag;
 
 	}
+
+	
 
 }

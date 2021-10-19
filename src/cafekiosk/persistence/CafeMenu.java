@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.CafeDTO;
+import cafekiosk.domain.OrderDTO;
 import cafekiosk.ui.CafePayment;
 
 import javax.swing.JTable;
@@ -50,12 +51,13 @@ public class CafeMenu extends JFrame implements ActionListener {
 	
 	private DefaultTableModel model;
 	private JPanel panel_5;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
+	private JButton btnNewButton,btnNewButton_1;
 	private int count = 0, menuNum = 0;
 	private JLabel lblcount = new JLabel((count+1)+"");
 	private Vector<CafeDTO> vetMenu;
 	CafeDTO dto;
+	CafeDAO dao;
+	OrderDTO ordto;
 	private JButton btnNewButton_2,btnNewButton_3;
 
 	public static void main(String[] args) {
@@ -176,9 +178,19 @@ public class CafeMenu extends JFrame implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						table.setValueAt(count+"", menuNum, 2);
+						lblcount.setText(count+"");
+						int no = menuNum+1;
+						ordto = new OrderDTO();
+						ordto.setNo(no);
+						ordto.setName(vetMenu.get(0).getName());
+						ordto.setPrice(count*vetMenu.get(0).getPrice());
+						ordto.setCount(count);
+						boolean flag = dao.insertList(ordto);
+						if(flag) {
+							JOptionPane.showMessageDialog(getParent(), "선택되었습니다");
+						}
 						menuNum += 1;
 						count = 0;
-						lblcount.setText(count+"");
 					}
 				});
 				panel_5.add(btnNewButton_3);
@@ -203,11 +215,8 @@ public class CafeMenu extends JFrame implements ActionListener {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("청포도에이드")) {
 						count +=1; 
-						CafeDAO dao = new CafeDAO();
+						 dao = new CafeDAO();
 						vetMenu = new Vector<CafeDTO>();
-//						dto = new CafeDTO();
-//						dto = dao.getList(cmd);
-//						String list[] = { dto.getType(), dto.getName() };
 						vetMenu= dao.getList(cmd);
 						String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
 						model.addRow(list);
@@ -231,18 +240,15 @@ public class CafeMenu extends JFrame implements ActionListener {
 				if (count == 0) {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("자몽에이드")) {
+						count +=1; 
 						CafeDAO dao = new CafeDAO();
 						dto = new CafeDTO();
-//						dto = dao.getList(cmd);
 						vetMenu = new Vector<CafeDTO>();
 						vetMenu = dao.getList(cmd);
 //						String list[] = { dto.getType(), dto.getName() };
 						String list[] = { vetMenu.get(0).getType(), vetMenu.get(0).getName(), 0+""};
 						model.addRow(list);
-//						countAde[i]+=1;
-//						panel_5.add(disCountButton(i));
-//						panel_5.add(lblAde2);
-//						panel_5.add(plusCountButton(i));
+
 
 					}
 				} else {
@@ -263,6 +269,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 				if (count == 0) {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("레몬에이드")) {
+						count +=1; 
 						CafeDAO dao = new CafeDAO();
 						dto = new CafeDTO();
 //						dto = dao.getList(cmd);

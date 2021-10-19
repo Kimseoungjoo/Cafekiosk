@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import cafekiosk.domain.CafeDTO;
+import cafekiosk.domain.OrderDTO;
 import cafekiosk.domain.UserDTO;
 
 public class CafeDAO {
@@ -83,7 +84,7 @@ public class CafeDAO {
 		return dto;
 
 	}
-	public static /*CafeDTO*/ Vector<CafeDTO>getList(String menu) {
+	public  /*CafeDTO*/ Vector<CafeDTO> getList(String menu) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -121,6 +122,40 @@ public class CafeDAO {
 //		return dto;
 		return vetList;
 	}
+	public  boolean insertList(OrderDTO dto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean flag = false;
+		try {
+			con = getConnection();
+			
+			String sql = "insert into orderTBL values(?,?,?,?)";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,dto.getNo());
+			pstmt.setString(2,dto.getName());
+			pstmt.setInt(3,dto.getPrice());
+			pstmt.setInt(4,dto.getCount());
+			int result = pstmt.executeUpdate();
+			
+			if(result>0) {
+				flag = true;
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				con.close();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
 	
 
+	
+	
 }
