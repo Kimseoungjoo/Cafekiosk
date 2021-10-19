@@ -340,6 +340,8 @@ public class CafeMenu extends JFrame implements ActionListener {
       return panel_2;
    }
 
+   
+
    public JPanel TeaMenuPanel() {
       panel_3 = new JPanel();
       panel_3.setLayout(new GridLayout(0, 3, 0, 0));
@@ -374,6 +376,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 	});
       panel_3.add(btnEgr);
 
+
       btnPam = new JButton("");
       btnPam.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/Paper.jpg")));
       btnPam.setActionCommand("페퍼민트");
@@ -386,7 +389,6 @@ public class CafeMenu extends JFrame implements ActionListener {
 	               if (cmd.equals("페퍼민트")) {
 	                  CafeDAO dao = new CafeDAO();
 	                  dto = new CafeDTO();
-
 	                  vetMenu = new Vector<CafeDTO>();
 	                  vetMenu = dao.getList(cmd);
 	                  
