@@ -9,16 +9,26 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cafekiosk.domain.CafeDTO;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.TextArea;
+
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Container;
+
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class CafeMenu extends JFrame implements ActionListener{
 
@@ -30,9 +40,12 @@ public class CafeMenu extends JFrame implements ActionListener{
 	,btncafelatte,btnespresso,btnEgr,btnPam,btnRoob;
 	private JPanel panel_2;
 	private JPanel panel_3;
+	private JPanel panel_4;
 //	private JButton btnNewButton;
 //	private JButton btnNewButton_1;
 //	private JButton btnNewButton_2;
+	
+	private ArrayList<CafeDTO> orderList;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,6 +64,7 @@ public class CafeMenu extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public CafeMenu() {
+		orderList = new ArrayList<>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		contentPane = new JPanel();
@@ -90,6 +104,17 @@ public class CafeMenu extends JFrame implements ActionListener{
 		
 		scrollPane = new JScrollPane();// 메뉴 창 띄우는 패널
 		contentPane.add(scrollPane);
+		
+		panel_4 = new JPanel();
+		contentPane.add(panel_4, BorderLayout.SOUTH);
+		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		TextArea ta = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
+        ta.setText("상품명\t단가\t합계\n");
+        ta.setBackground(Color.white);
+        ta.setEditable(false);
+		
+		panel_4.add(ta);
 		
 		
 		
@@ -139,7 +164,7 @@ public class CafeMenu extends JFrame implements ActionListener{
 			scrollPane.setViewportView(adeMenuPanel()); 
 		}
 		else if(cmd.equals("TEA")) {
-			scrollPane.setViewportView(TeaMenuPanel()); 
+			scrollPane.setViewportView(TeaMenuPanel());  
 		}
 	}
 
@@ -176,9 +201,37 @@ public class CafeMenu extends JFrame implements ActionListener{
 		btnRoob = new JButton("");
 		btnRoob.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/roibos.jpg")));
 		panel_3.add(btnRoob);
+		
+		addActionLister();
 		return panel_3;
+		
 	}
 	
-	
+	public void addActionLister() {
+		ActionListener acListener = new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(btnEgr.equals(arg0.getSource())) {
+					CafeDTO tea = OrderDAO.getRow(7);
+					
+					System.out.println(tea.getName() + " , " + tea.getPrice());
+				} else if(btnPam.equals(arg0.getSource())) {
+					CafeDTO tea = OrderDAO.getRow(8);
+					
+					System.out.println(tea.getName() + " , " + tea.getPrice());
+				} else if(btnRoob.equals(arg0.getSource())) {
+					CafeDTO tea = OrderDAO.getRow(9);
+					
+					System.out.println(tea.getName() + " , " + tea.getPrice());
+				}
+				
+			}
+			
+		};
+		
+		btnEgr.addActionListener(acListener);
+		btnPam.addActionListener(acListener);
+		btnRoob.addActionListener(acListener);
+	}
 }
