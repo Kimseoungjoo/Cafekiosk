@@ -53,35 +53,6 @@ public class OrderDAO {
 
 	}
 
-	// orderTBL 전체 데이터 delete
-	public boolean deleteOrderTBL() {
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean deleteFlag = false;
-
-		try {
-			con = CafeDAO.getConnection();
-			String sql = "delete orderTBL";
-			pstmt = con.prepareStatement(sql);
-			int result = pstmt.executeUpdate();
-
-			if (result > 0) {
-				deleteFlag = true;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				pstmt.close();
-				con.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		return deleteFlag;
-
-	}
+	
 
 }
