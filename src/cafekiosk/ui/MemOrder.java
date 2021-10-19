@@ -131,13 +131,11 @@ public class MemOrder extends JFrame implements ActionListener {
 				
 			}
 			
-<<<<<<< HEAD
-	
-=======
+
 		
 		
 
->>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
+
 		}
 
 	}
