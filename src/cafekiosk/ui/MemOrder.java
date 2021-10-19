@@ -152,48 +152,67 @@ public class MemOrder extends JFrame implements ActionListener {
 
 			}
 
-		} 
-		if(textField.getText()!=null) {
+		}
+
 		if (e.getActionCommand().equals("포인트 사용 결제")) {
 
-			tel = textField.getText();
-			point = textField_2.getText();
+			if (!textField_2.getText().equals("")/*&&
+					
+				Integer.parseInt(textField_2.getText())>Integer.parseInt(textField_1.getText())*/
+					) {
 
-			paydao = new PointDAO();
+				try {
 
-			paydao.insertPoint(tel, Integer.parseInt(point));
+					tel = textField.getText();
+					point = textField_2.getText();
 
-			MemPayment mp = new MemPayment();
-			mp.setVisible(true);
-			this.setVisible(false);
+					paydao = new PointDAO();
 
-		} else if (e.getActionCommand().equals("포인트 미사용 결제")) {
-			
-			tel = textField.getText();
-			
-			paydao = new PointDAO();
+					paydao.insertPoint(tel, Integer.parseInt(point));
 
-			paydao.insertPoint(tel, 0);
+					MemPayment mp = new MemPayment();
+					mp.setVisible(true);
+					this.setVisible(false);
 
-			MemPaymentNotPoint mpnp = new MemPaymentNotPoint();
-			mpnp.setVisible(true);
-			this.setVisible(false);
+				} catch (NumberFormatException e1) {
 
-		} } else if(textField.getText()==null)  {
-			
-			JOptionPane.showMessageDialog(getParent(), "휴대폰 번호를 입력해주세요");
-			
+					if (textField.getText().equals("")) {
+						JOptionPane.showMessageDialog(getParent(), "휴대폰 번호를 입력해주세요");
+					} else if(textField_2.getText().equals("")) {
+						JOptionPane.showMessageDialog(getParent(), "포인트를 입력해주세요");
+					}
+
+				}
+			}
+
 		}
-		
-		
+
+		if (e.getActionCommand().equals("포인트 미사용 결제")) {
+
+			System.out.println(textField.getText());
+
+			if (!textField.getText().equals("")) {
+
+				tel = textField.getText();
+
+				paydao = new PointDAO();
+
+				paydao.insertPoint(tel, 0);
+
+				MemPaymentNotPoint mpnp = new MemPaymentNotPoint();
+				mpnp.setVisible(true);
+				this.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(getParent(), "휴대폰 번호를 입력해주세요");
+			}
+
+		}
+
 		if (e.getActionCommand().equals("이전")) {
-			
-			
+
 			CafeMenu cm = new CafeMenu();
 			cm.setVisible(true);
 			this.setVisible(false);
-			
-			
 
 		}
 
