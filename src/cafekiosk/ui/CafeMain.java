@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cafekiosk.persistence.CafeMenu;
+
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -13,6 +16,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
@@ -51,10 +56,17 @@ public class CafeMain extends JFrame implements ActionListener {
 		panelBottom.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnNewUser = new JButton("회원가입");
+		btnNewUser.setBackground(new Color(191, 160, 237));
+		btnNewUser.setForeground(Color.WHITE);
+		btnNewUser.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		btnNewUser.addActionListener(this);
 		panelBottom.add(btnNewUser);
 		
 		JButton btnOrder = new JButton("주문");
+		btnOrder.setBackground(new Color(191, 160, 237));
+		btnOrder.setForeground(Color.WHITE);
+		btnOrder.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btnOrder.addActionListener(this);
 		panelBottom.add(btnOrder);
 		
 		JPanel panelImg = new JPanel();
@@ -88,8 +100,10 @@ public class CafeMain extends JFrame implements ActionListener {
 			CafeNewUser newUser = new CafeNewUser();
 			newUser.setVisible(true);
 			setVisible(false);
-		} else {
-			
+		} else if(cmd.equals("주문")){
+			CafeMenu menu = new CafeMenu();
+			menu.setVisible(true);
+			setVisible(false);
 		}
 	}
 }

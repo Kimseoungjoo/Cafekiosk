@@ -12,12 +12,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 
-public class OrderDTO {
+public class PointDTO {
 	
-	private int no;
-	private String name;
-	private int price;
-	private int count;
-
+	private int point;
+	private String tel;
 
 }

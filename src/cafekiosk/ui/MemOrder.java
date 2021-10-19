@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
 import cafekiosk.domain.CafeDTO;
 
 import java.awt.FlowLayout;
@@ -22,15 +21,31 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import cafekiosk.domain.UserDTO;
 import cafekiosk.persistence.CafeDAO;
+import cafekiosk.persistence.OrderDAO;
+import cafekiosk.persistence.PointDAO;
+import lombok.Getter;
+import lombok.Setter;
 
 public class MemOrder extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	JLabel name; 
+	JLabel name;
 	UserDTO dto;
 	CafeDAO dao;
+	PointDAO paydao;
+	private JTextField textField_2;
+	private String point;
+	private String tel;
+
+	public String getPoint() {
+		return point;
+	}
+
+	public void setPoint(String point) {
+		this.point = point;
+	}
 
 	/**
 	 * Launch the application.
@@ -63,12 +78,10 @@ public class MemOrder extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		
+
 		name = new JLabel("손");
 		panel.add(name);
-		
-		
+
 		JLabel lblNewLabel_3 = new JLabel("님. 반갑습니다. 당신의 포인트는 다음과 같습니다.");
 		panel.add(lblNewLabel_3);
 
@@ -76,6 +89,14 @@ public class MemOrder extends JFrame implements ActionListener {
 		panel.add(textField_1);
 		textField_1.addActionListener(this);
 		textField_1.setColumns(10);
+
+		JLabel lblNewLabel_1 = new JLabel("몇 포인트를 사용하시겠습니까?");
+		panel.add(lblNewLabel_1);
+
+		textField_2 = new JTextField();
+		panel.add(textField_2);
+		textField_2.addActionListener(this);
+		textField_2.setColumns(10);
 
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
@@ -113,28 +134,58 @@ public class MemOrder extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getActionCommand().equals("포인트확인")) {
-			
-			
+
 			textField.getText();
 
-			
 			dto = new UserDTO();
 			dto = dao.getPoint(textField.getText());
-		
-			if(dto != null) {
-				
+
+			if (dto != null) {
+
 				name.setText(dto.getName());
-				textField_1.setText(dto.getPoint()+"");
-				
+				textField_1.setText(dto.getPoint() + "");
+				setPoint(dto.getPoint() + "");
+
 			} else {
 				JOptionPane.showMessageDialog(getParent(), "등록되지 않았습니다. 회원가입해주세요");
-				
+
 			}
+
+		} 
+		if(textField.getText()!=null) {
+		if (e.getActionCommand().equals("포인트 사용 결제")) {
+
+			tel = textField.getText();
+			point = textField_2.getText();
+
+			paydao = new PointDAO();
+
+			paydao.insertPoint(tel, Integer.parseInt(point));
+
+			MemPayment mp = new MemPayment();
+			mp.setVisible(true);
+			this.setVisible(false);
+
+		} else if (e.getActionCommand().equals("포인트 미사용 결제")) {
 			
+			tel = textField.getText();
+			
+			paydao = new PointDAO();
 
+			paydao.insertPoint(tel, 0);
+
+			MemPaymentNotPoint mpnp = new MemPaymentNotPoint();
+			mpnp.setVisible(true);
+			this.setVisible(false);
+
+		} } else if(textField.getText()==null)  {
+			
+			JOptionPane.showMessageDialog(getParent(), "휴대폰 번호를 입력해주세요");
+			
+		}
 		
 		
-
+		if (e.getActionCommand().equals("이전")) {
 
 		}
 

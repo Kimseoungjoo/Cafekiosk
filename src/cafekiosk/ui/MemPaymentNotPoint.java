@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.OrderDTO;
 import cafekiosk.domain.PointDTO;
-import cafekiosk.domain.UserDTO;
 import cafekiosk.persistence.OrderDAO;
 import cafekiosk.persistence.PointDAO;
 
@@ -26,14 +25,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class MemPayment extends JFrame implements ActionListener {
+public class MemPaymentNotPoint extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
 	private JTable table;
 	DefaultTableModel model;
 	OrderDAO orderDAO = new OrderDAO();
-	PointDAO pointDAO = new PointDAO();
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
@@ -44,9 +42,9 @@ public class MemPayment extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_7;
 	private JLabel total;
+	PointDAO pointDAO = new PointDAO();
 	int sum;
 	int point;
-	UserDTO userDTO = new UserDTO();
 	int plusPoint;
 	PointDTO pointDTO = pointDAO.getrow();
 
@@ -57,7 +55,7 @@ public class MemPayment extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MemPayment frame = new MemPayment();
+					MemPaymentNotPoint frame = new MemPaymentNotPoint();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,7 +67,7 @@ public class MemPayment extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public MemPayment() {
+	public MemPaymentNotPoint() {
 		setTitle("회원결제");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -97,23 +95,7 @@ public class MemPayment extends JFrame implements ActionListener {
 
 		JPanel panel1 = new JPanel();
 		contentPane.add(panel1, BorderLayout.SOUTH);
-		panel1.setLayout(new GridLayout(5, 2, 0, 0));
-
-		total = new JLabel("총금액");
-		total.setHorizontalAlignment(SwingConstants.CENTER);
-		panel1.add(total);
-
-		lblNewLabel_2 = new JLabel("0");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel1.add(lblNewLabel_2);
-
-		lblNewLabel_3 = new JLabel("포인트 사용");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		panel1.add(lblNewLabel_3);
-
-		lblNewLabel_4 = new JLabel("0");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		panel1.add(lblNewLabel_4);
+		panel1.setLayout(new GridLayout(3, 2, 0, 0));
 
 		lblNewLabel_1 = new JLabel("최종결제금액");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -131,15 +113,9 @@ public class MemPayment extends JFrame implements ActionListener {
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		panel1.add(lblNewLabel_7);
 
-		lblNewLabel_2.setText(sum + "원");
+		lblNewLabel_6.setText(sum + "원");
 
-		point = pointDTO.getPoint();
-
-		lblNewLabel_4.setText(point + "원");
-
-		lblNewLabel_6.setText(sum - point + "원");
-
-		plusPoint = (int) ((sum - point) * 0.01);
+		plusPoint = (int) (sum * 0.01);
 		lblNewLabel_7.setText(plusPoint + "원");
 
 		btnNewButton = new JButton("결제");
@@ -181,9 +157,7 @@ public class MemPayment extends JFrame implements ActionListener {
 		String cmd = e.getActionCommand();
 
 		if (cmd.equals("결제")) {
-
 			pointDAO.plusPoint(pointDTO.getTel(), plusPoint);
-			pointDAO.minusPoint(pointDTO.getTel(), point);
 
 			orderDAO.deleteOrderTBL();
 			pointDAO.deletePointTBL();
