@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import cafekiosk.domain.OrderDTO;
 import cafekiosk.domain.PointDTO;
 import cafekiosk.domain.UserDTO;
+import cafekiosk.persistence.CafeMenu;
 import cafekiosk.persistence.OrderDAO;
 import cafekiosk.persistence.PointDAO;
 
@@ -190,6 +191,11 @@ public class MemPayment extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(getParent(), "카드를 넣어주세요");
 
 		} else {
+			
+			pointDAO.deletePointTBL();
+			CafeMenu cm = new CafeMenu();
+			cm.setVisible(true);
+			this.setVisible(false);
 
 		}
 	}

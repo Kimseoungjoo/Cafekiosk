@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import cafekiosk.domain.UserDTO;
 import cafekiosk.persistence.CafeDAO;
+import cafekiosk.persistence.CafeMenu;
 import cafekiosk.persistence.OrderDAO;
 import cafekiosk.persistence.PointDAO;
 import lombok.Getter;
@@ -186,6 +187,13 @@ public class MemOrder extends JFrame implements ActionListener {
 		
 		
 		if (e.getActionCommand().equals("이전")) {
+			
+			
+			CafeMenu cm = new CafeMenu();
+			cm.setVisible(true);
+			this.setVisible(false);
+			
+			
 
 		}
 

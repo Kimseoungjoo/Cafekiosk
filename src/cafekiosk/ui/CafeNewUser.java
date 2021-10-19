@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
 
 public class CafeNewUser extends JFrame implements ActionListener {
 
@@ -28,6 +29,7 @@ public class CafeNewUser extends JFrame implements ActionListener {
 	private JTextField name;
 	private JTextField nickname;
 	private JTextField tel;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -56,54 +58,71 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		JPanel panelMain = new JPanel();
-		contentPane.add(panelMain, BorderLayout.SOUTH);
-		panelMain.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel panelBottom = new JPanel();
+		contentPane.add(panelBottom, BorderLayout.SOUTH);
+		panelBottom.setLayout(new GridLayout(0, 2, 0, 0));
 
 		JButton btnJoin = new JButton("회원가입");
 		btnJoin.setBackground(new Color(191, 160, 237));
 		btnJoin.setForeground(Color.WHITE);
 		btnJoin.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		btnJoin.addActionListener(this);
-		panelMain.add(btnJoin);
+		panelBottom.add(btnJoin);
 
 		JButton btnCancel = new JButton("취소");
 		btnCancel.setBackground(new Color(191, 160, 237));
 		btnCancel.setForeground(Color.WHITE);
 		btnCancel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		btnCancel.addActionListener(this);
-		panelMain.add(btnCancel);
+		panelBottom.add(btnCancel);
 
-		JPanel panelBottom = new JPanel();
-		contentPane.add(panelBottom, BorderLayout.CENTER);
-		panelBottom.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel panelMain = new JPanel();
+		contentPane.add(panelMain, BorderLayout.CENTER);
+		panelMain.setLayout(new GridLayout(0, 2, 0, 0));
 
 		JLabel lblName = new JLabel("이름");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-		panelBottom.add(lblName);
+		panelMain.add(lblName);
+		
+		JPanel panelName = new JPanel();
+		panelMain.add(panelName);
 
 		name = new JTextField();
-		panelBottom.add(name);
+		panelName.add(name);
 		name.setColumns(10);
 
 		JLabel lblNickname = new JLabel("닉네임");
 		lblNickname.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNickname.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-		panelBottom.add(lblNickname);
+		panelMain.add(lblNickname);
+		
+		JPanel panelNickName = new JPanel();
+		panelMain.add(panelNickName);
 
 		nickname = new JTextField();
-		panelBottom.add(nickname);
+		panelNickName.add(nickname);
 		nickname.setColumns(10);
 
 		JLabel lblTel = new JLabel("전화번호");
 		lblTel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-		panelBottom.add(lblTel);
+		panelMain.add(lblTel);
+		
+		JPanel panelTel = new JPanel();
+		panelMain.add(panelTel);
 
 		tel = new JTextField();
-		panelBottom.add(tel);
+		panelTel.add(tel);
 		tel.setColumns(10);
+		
+		JButton btnTelCerti = new JButton("전화번호 인증");
+		btnTelCerti.setHorizontalAlignment(SwingConstants.LEFT);
+		btnTelCerti.setBackground(new Color(191, 160, 237));
+		btnTelCerti.setForeground(Color.WHITE);
+		btnTelCerti.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btnTelCerti.addActionListener(this);
+		panelTel.add(btnTelCerti);
 	}
 
 	@Override
