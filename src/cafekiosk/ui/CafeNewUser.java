@@ -180,6 +180,9 @@ public class CafeNewUser extends JFrame implements ActionListener {
 				} else { // 가입된 전화번호가 있다면
 					JOptionPane.showMessageDialog(null, "이미 존재하는 전화번호 입니다.", "INFORMATION_MESSAGE",
 							JOptionPane.ERROR_MESSAGE);
+					tel.setText("");
+					btnTelCerti.setText("전화번호 인증");
+					btnTelCerti.setEnabled(true);
 				}
 			}
 		} else if (cmd.equals("취소")) {
