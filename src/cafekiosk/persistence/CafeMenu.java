@@ -378,22 +378,93 @@ public class CafeMenu extends JFrame implements ActionListener {
 
 
    public JPanel coffeeMenuPanel() {
-      panel_2 = new JPanel();
-      panel_2.setLayout(new GridLayout(0, 3, 0, 0));
-      panel_2.setBounds(0, 0, 200, 350);
-      btnamericano = new JButton("");
-      btnamericano.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/americano.png")));
-      panel_2.add(btnamericano);
+	      panel_2 = new JPanel();
+	      panel_2.setLayout(new GridLayout(0, 3, 0, 0));
+	      panel_2.setBounds(0, 0, 200, 350);
+	      btnamericano = new JButton("");
+	      btnamericano.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/americano.png")));
+	      panel_2.add(btnamericano);
+	      btnamericano.setActionCommand("아메리카노");
+	      btnamericano.addActionListener(new ActionListener() {
 
-      btncafelatte = new JButton("");
-      btncafelatte.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/cafelatte.png")));
-      panel_2.add(btncafelatte);
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
 
-      btnespresso = new JButton("");
-      btnespresso.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/espresso.png")));
-      panel_2.add(btnespresso);
-      return panel_2;
-   }
+	            if ( count== 0) {
+	               String cmd = e.getActionCommand();
+	               if (cmd.equals("아메리카노")) {
+	                  count +=1; 
+	                  dao = new CafeDAO();
+	                  vetMenu = new Vector<CafeDTO>();
+	                  vetMenu= dao.getList(cmd);
+	                  String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
+	                  model.addRow(list);
+	                  
+	               }
+	            } else {
+	               JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
+	            }
+	            panel_5.revalidate();
+	         }
+	      });
+
+	      btncafelatte = new JButton("");
+	      btncafelatte.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/cafelatte.png")));
+	      panel_2.add(btncafelatte);
+	      btncafelatte.setActionCommand("카페라떼");
+	      btncafelatte.addActionListener(new ActionListener() {
+
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
+	            if (count == 0) {
+	               String cmd = e.getActionCommand();
+	               if (cmd.equals("카페라떼")) {
+	                  dao = new CafeDAO();
+	                  dto = new CafeDTO();
+	                  vetMenu = new Vector<CafeDTO>();
+	                  vetMenu = dao.getList(cmd);
+	                  String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
+	                  model.addRow(list);
+
+	               }
+	            } else {
+	               JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
+	            }
+	            panel_5.revalidate();
+	         }
+	      });
+
+	      btnespresso = new JButton("");
+	      btnespresso.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/espresso.png")));
+	      panel_2.add(btnespresso);
+	      btnespresso.setActionCommand("에스프레소");
+	      btnespresso.addActionListener(new ActionListener() {
+	         
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
+	            if (count == 0) {
+	               String cmd = e.getActionCommand();
+	               if (cmd.equals("에스프레소")) {
+	                  dao = new CafeDAO();
+	                  dto = new CafeDTO();
+	                  vetMenu = new Vector<CafeDTO>();
+
+	                  vetMenu = dao.getList(cmd);
+	                  
+	                  String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
+	                  model.addRow(list);
+
+	               }
+	            } else {
+	               JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
+	            }
+	            panel_5.revalidate();
+	         }
+	      });
+	      
+	      
+	      return panel_2;
+	   }
 
    
 
