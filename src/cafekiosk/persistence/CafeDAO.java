@@ -136,7 +136,7 @@ public class CafeDAO {
 			con = getConnection();
 			
 			String sql = "insert into orderTBL values(?,?,?,?)";
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1,dto.getNo());
 			pstmt.setString(2,dto.getName());
@@ -160,6 +160,27 @@ public class CafeDAO {
 		}
 		return flag;
 	}
-	
+	public boolean deleteList(int no) {
+		boolean flag = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = getConnection();
+			String sql = "delete from orderTBL where no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			flag = pstmt.execute();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
 
 }
