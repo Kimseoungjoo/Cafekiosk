@@ -241,7 +241,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("자몽에이드")) {
 						count +=1; 
-						CafeDAO dao = new CafeDAO();
+						dao = new CafeDAO();
 						dto = new CafeDTO();
 						vetMenu = new Vector<CafeDTO>();
 						vetMenu = dao.getList(cmd);
@@ -270,7 +270,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 					String cmd = e.getActionCommand();
 					if (cmd.equals("레몬에이드")) {
 						count +=1; 
-						CafeDAO dao = new CafeDAO();
+						dao = new CafeDAO();
 						dto = new CafeDTO();
 //						dto = dao.getList(cmd);
 						vetMenu = new Vector<CafeDTO>();
