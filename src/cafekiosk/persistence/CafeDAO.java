@@ -83,8 +83,14 @@ public class CafeDAO {
 
 		return dto;
 
-	}
+
+
+	}	
+
+	
+
 	public  /*CafeDTO*/ Vector<CafeDTO> getList(String menu) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -156,6 +162,4 @@ public class CafeDAO {
 	}
 	
 
-	
-	
 }
