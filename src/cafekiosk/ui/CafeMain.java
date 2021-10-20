@@ -45,6 +45,7 @@ public class CafeMain extends JFrame implements ActionListener {
 	
 	public CafeMain() {
 		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
+		Font btnFont = new Font("맑은 고딕", Font.BOLD, 18); // 버튼 폰트 종류, 크기
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 550);
@@ -61,14 +62,14 @@ public class CafeMain extends JFrame implements ActionListener {
 		JButton btnNewUser = new JButton("회원가입");
 		btnNewUser.setBackground(btnBgColor);
 		btnNewUser.setForeground(Color.WHITE);
-		btnNewUser.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		btnNewUser.setFont(btnFont);
 		btnNewUser.addActionListener(this);
 		panelBottom.add(btnNewUser);
 		
 		JButton btnOrder = new JButton("주문");
 		btnOrder.setBackground(btnBgColor);
 		btnOrder.setForeground(Color.WHITE);
-		btnOrder.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		btnOrder.setFont(btnFont);
 		btnOrder.addActionListener(this);
 		panelBottom.add(btnOrder);
 		

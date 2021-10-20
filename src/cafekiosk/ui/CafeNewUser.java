@@ -57,6 +57,8 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		Color bgColor = new Color(245, 245, 245); // 레이아웃 배경 색
 		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
 		Color btnTelCertiColor = new Color(128, 65, 217); // 전화번호 인증 버튼 배경 색
+		Font btnFont = new Font("맑은 고딕", Font.BOLD, 18); // 버튼 폰트 종류, 크기
+		Font lblFont = new Font("맑은 고딕", Font.BOLD, 20); // 라벨 폰트 종류, 크기
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 550);
@@ -65,6 +67,7 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
+		// 회원가입, 취소 버튼
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		panelBottom.setLayout(new GridLayout(0, 2, 0, 0));
@@ -73,7 +76,7 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		// 버튼 모양
 		btnJoin.setBackground(btnBgColor);
 		btnJoin.setForeground(Color.WHITE);
-		btnJoin.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		btnJoin.setFont(btnFont);
 		btnJoin.setEnabled(false); // 버튼 비활성화
 		btnJoin.addActionListener(this);
 		panelBottom.add(btnJoin);
@@ -81,54 +84,46 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		JButton btnCancel = new JButton("취소");
 		btnCancel.setBackground(btnBgColor);
 		btnCancel.setForeground(Color.WHITE);
-		btnCancel.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		btnCancel.setFont(btnFont);
 		btnCancel.addActionListener(this);
 		panelBottom.add(btnCancel);
 
+		// 회원가입 정보 입력
 		JPanel panelMain = new JPanel();
 		panelMain.setBackground(bgColor);
 		contentPane.add(panelMain, BorderLayout.CENTER);
-		panelMain.setLayout(new GridLayout(0, 2, 0, 0));
+//		panelMain.setLayout(new GridLayout(0, 2, 0, 0));
+		panelMain.setLayout(null);
 
 		JLabel lblName = new JLabel("이름");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblName.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lblName.setFont(lblFont);
+		lblName.setBounds(110, 100, 100, 30); // lblName 위치 및 크기
 		panelMain.add(lblName);
-		
-		JPanel panelName = new JPanel();
-		panelName.setBackground(bgColor);
-		panelMain.add(panelName);
 
 		name = new JTextField();
-		panelName.add(name);
-		name.setColumns(10);
+		name.setBounds(190, 100, 150, 30); // name 위치 및 크기
+		panelMain.add(name);
 
 		JLabel lblNickname = new JLabel("닉네임");
 		lblNickname.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNickname.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lblNickname.setFont(lblFont);
+		lblNickname.setBounds(100, 150, 100, 30); // lblNickname 위치 및 크기
 		panelMain.add(lblNickname);
-		
-		JPanel panelNickName = new JPanel();
-		panelNickName.setBackground(bgColor);
-		panelMain.add(panelNickName);
 
 		nickname = new JTextField();
-		panelNickName.add(nickname);
-		nickname.setColumns(10);
+		nickname.setBounds(190, 150, 150, 30); // nickname 위치 및 크기
+		panelMain.add(nickname);
 
 		JLabel lblTel = new JLabel("전화번호");
 		lblTel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		lblTel.setFont(lblFont);
+		lblTel.setBounds(90, 200, 100, 30); // lblTel 위치 및 크기
 		panelMain.add(lblTel);
-		
-		JPanel panelTel = new JPanel();
-		panelTel.setBackground(bgColor);
-		FlowLayout flowLayout = (FlowLayout) panelTel.getLayout();
-		panelMain.add(panelTel);
 
 		tel = new JTextField();
-		panelTel.add(tel);
-		tel.setColumns(10);
+		tel.setBounds(190, 200, 150, 30); // tel 위치 및 크기
+		panelMain.add(tel);
 		
 		btnTelCerti = new JButton("전화번호 인증");
 		// 버튼 모양
@@ -137,7 +132,9 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		btnTelCerti.setForeground(Color.WHITE);
 		btnTelCerti.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		btnTelCerti.addActionListener(this);
-		panelTel.add(btnTelCerti);
+		btnTelCerti.setBounds(210, 250, 115, 25); // btnTelCerti 위치 및 크기
+		panelMain.add(btnTelCerti);
+//		panelTel.add(btnTelCerti);
 	}
 
 	@Override

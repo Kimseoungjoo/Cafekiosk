@@ -55,6 +55,7 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 	public CafeTelCerti() {
 		Color bgColor = new Color(245, 245, 245); // 레이아웃 배경 색
 		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
+		Font btnFont = new Font("맑은 고딕", Font.BOLD, 18); // 버튼 폰트 종류, 크기
 		
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 200, 450, 300);
@@ -71,7 +72,7 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 		btnConfirm = new JButton("확인");
 		btnConfirm.setBackground(btnBgColor); // 버튼 배경색
 		btnConfirm.setForeground(Color.WHITE); // 버튼 글씨
-		btnConfirm.setFont(new Font("맑은 고딕", Font.BOLD, 12)); // 글씨 폰트 종류, 크기
+		btnConfirm.setFont(btnFont); // 글씨 폰트 종류, 크기
 		btnConfirm.setEnabled(false);
 		btnConfirm.addActionListener(this);
 		panelBottom.add(btnConfirm);
@@ -79,7 +80,7 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 		JButton btnCancel = new JButton("취소");
 		btnCancel.setBackground(btnBgColor);
 		btnCancel.setForeground(Color.WHITE);
-		btnCancel.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		btnCancel.setFont(btnFont);
 		btnCancel.addActionListener(this);
 		panelBottom.add(btnCancel);
 
