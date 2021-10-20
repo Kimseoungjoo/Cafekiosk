@@ -81,39 +81,46 @@ public class CafeMenu extends JFrame implements ActionListener {
     * Create the frame.
     */
    public CafeMenu() {
+   	setTitle("메뉴창~ ");
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
       contentPane = new JPanel();
-      contentPane.setBackground(Color.WHITE);
+      contentPane.setBackground(Color.YELLOW);
       contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
       setContentPane(contentPane);
       contentPane.setLayout(new BorderLayout(0, 0));
 
       JPanel panel = new JPanel(); // 메뉴창 틀(패널)
+      panel.setBackground(Color.YELLOW);
       contentPane.add(panel, BorderLayout.NORTH);
       panel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
 
       btnCoffee = new JButton("커피"); // 커피 메뉴
+      btnCoffee.setBackground(Color.ORANGE);
       btnCoffee.setActionCommand("COFFEE");
       btnCoffee.addActionListener(this);
       panel.add(btnCoffee);// 메뉴창 패널에 추가
 
       btnAde = new JButton("에이드"); // 에이드 메뉴
+      btnAde.setBackground(Color.ORANGE);
       btnAde.setActionCommand("ADE");
       btnAde.addActionListener(this);
       panel.add(btnAde);
 
       btnTea = new JButton("티"); // 티 메뉴
+      btnTea.setBackground(Color.ORANGE);
       btnTea.setActionCommand("TEA");
       btnTea.addActionListener(this);
       panel.add(btnTea);
 
       btnDessert = new JButton("디저트"); // 디저트 메뉴
+      btnDessert.setBackground(Color.ORANGE);
       btnDessert.setActionCommand("DESSERT");
       btnDessert.addActionListener(this);
       panel.add(btnDessert);
 
       btnEtc = new JButton("기타"); // 기타 메뉴
+      btnEtc.setBackground(Color.ORANGE);
       btnEtc.setActionCommand("ETC");
       btnEtc.addActionListener(this);
       panel.add(btnEtc);
@@ -125,6 +132,7 @@ public class CafeMenu extends JFrame implements ActionListener {
      
       // 주문리스트(panel) / 수량(panel) / layout(gridbag)
       panel_4 = new JPanel();
+      panel_4.setBackground(Color.WHITE);
       panel_4.setBorder(new TitledBorder(null, "주문리스트", TitledBorder.LEADING,
             TitledBorder.TOP, null, null));
       contentPane.add(panel_4, BorderLayout.SOUTH);
@@ -134,6 +142,7 @@ public class CafeMenu extends JFrame implements ActionListener {
       gbl_panel_4.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
       gbl_panel_4.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
       panel_4.setLayout(gbl_panel_4);
+      
       // table 안에 내용
       model = new DefaultTableModel(orderList, 0);
       
@@ -145,10 +154,13 @@ public class CafeMenu extends JFrame implements ActionListener {
             gbc_scrollPane1.gridy = 0;
             panel_4.add(scrollPane1, gbc_scrollPane1);
             table = new JTable(model);
+            table.setBackground(Color.yellow);
+//            table.setBackground(Color.WHITE);
             table.setBorder(null);
             
             scrollPane1.setViewportView(table);
       panel_5 = new JPanel();
+      panel_5.setBackground(Color.YELLOW);
       
             panel_5.setBorder(new TitledBorder(null, "수량", TitledBorder.LEADING, TitledBorder.TOP, null, null));
             GridBagConstraints gbc_panel_5 = new GridBagConstraints();
@@ -179,6 +191,7 @@ public class CafeMenu extends JFrame implements ActionListener {
             gbc_btnPayment.gridx = 1;
             gbc_btnPayment.gridy = 1;
             panel_4.add(btnPayment, gbc_btnPayment);
+          
             // 결제 창으로 
             btnPayment.addActionListener(new ActionListener() {
 				
@@ -259,18 +272,20 @@ public class CafeMenu extends JFrame implements ActionListener {
       panel_1.add(btnGrapeAde);
       btnGrapeAde.setActionCommand("청포도에이드");
       btnGrapeAde.addActionListener(new ActionListener() {
-
+    
+    	  // 청포도에이드이벤트 DB(menuTBL)데이터 불러오기 / 테이블에 데이터 넣기 
          @Override
          public void actionPerformed(ActionEvent e) {
 
-            if ( count== 0) {
+            if ( count== 0) { // if() 안에 쓰인 count : 수량의 의미가 아니라 버튼을 2번이상 눌렀을때를 잡기위한 변수입니다
                String cmd = e.getActionCommand();
                if (cmd.equals("청포도에이드")) {
-                  count +=1; 
+                  count +=1; // 이떄의 count는 수량 1개!
                   dao = new CafeDAO();
                   vetMenu = new Vector<CafeDTO>();
                   vetMenu= dao.getList(cmd);
-                  String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
+                  String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""}; // model.addRow(vetMenu)를 해줘야하지만 테이블에 보여주는 데이터가 다르기 떄문에
+                 // String list[] 에 필요 데이터만 받아서 model.addRow작업 
                   model.addRow(list);
                   
                }
@@ -286,14 +301,14 @@ public class CafeMenu extends JFrame implements ActionListener {
       panel_1.add(btnGrapefruitsAde);
       btnGrapefruitsAde.setActionCommand("자몽에이드");
       btnGrapefruitsAde.addActionListener(new ActionListener() {
-
+    
+    	  // 자몽에이드 이벤트 DB(menuTBL)데이터 불러오기 / 테이블에 데이터 넣기 
          @Override
          public void actionPerformed(ActionEvent e) {
             if (count == 0) {
                String cmd = e.getActionCommand();
                if (cmd.equals("자몽에이드")) {
                   dao = new CafeDAO();
-                  dto = new CafeDTO();
                   vetMenu = new Vector<CafeDTO>();
                   vetMenu = dao.getList(cmd);
                   String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
@@ -319,9 +334,7 @@ public class CafeMenu extends JFrame implements ActionListener {
                String cmd = e.getActionCommand();
                if (cmd.equals("레몬에이드")) {
                   dao = new CafeDAO();
-                  dto = new CafeDTO();
                   vetMenu = new Vector<CafeDTO>();
-
                   vetMenu = dao.getList(cmd);
                   
                   String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
@@ -379,17 +392,21 @@ public class CafeMenu extends JFrame implements ActionListener {
 
    public JPanel coffeeMenuPanel() {
       panel_2 = new JPanel();
+      panel_2.setBackground(Color.WHITE);
       panel_2.setLayout(new GridLayout(0, 3, 0, 0));
       panel_2.setBounds(0, 0, 200, 350);
       btnamericano = new JButton("");
+      btnamericano.setBackground(new Color(255, 255, 224));
       btnamericano.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/americano.png")));
       panel_2.add(btnamericano);
 
       btncafelatte = new JButton("");
+      btncafelatte.setBackground(new Color(255, 255, 224));
       btncafelatte.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/cafelatte.png")));
       panel_2.add(btncafelatte);
 
       btnespresso = new JButton("");
+      btnespresso.setBackground(new Color(255, 255, 224));
       btnespresso.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/espresso.png")));
       panel_2.add(btnespresso);
       return panel_2;
@@ -412,7 +429,6 @@ public class CafeMenu extends JFrame implements ActionListener {
                   String cmd = e.getActionCommand();
                   if (cmd.equals("얼그레이")) {
                      dao = new CafeDAO();
-                     dto = new CafeDTO();
 
                      vetMenu = new Vector<CafeDTO>();
                      vetMenu = dao.getList(cmd);
@@ -443,7 +459,6 @@ public class CafeMenu extends JFrame implements ActionListener {
                   String cmd = e.getActionCommand();
                   if (cmd.equals("페퍼민트")) {
                      dao = new CafeDAO();
-                     dto = new CafeDTO();
                      vetMenu = new Vector<CafeDTO>();
                      vetMenu = dao.getList(cmd);
                      
@@ -472,7 +487,6 @@ public class CafeMenu extends JFrame implements ActionListener {
                   String cmd = e.getActionCommand();
                   if (cmd.equals("루이보스")) {
                      dao = new CafeDAO();
-                     dto = new CafeDTO();
 
                      vetMenu = new Vector<CafeDTO>();
                      vetMenu = dao.getList(cmd);
