@@ -2,6 +2,7 @@ package cafekiosk.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -14,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 public class CafeTelCerti extends JDialog implements ActionListener {
 
@@ -51,6 +53,9 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 	 * Create the dialog.
 	 */
 	public CafeTelCerti() {
+		Color bgColor = new Color(245, 245, 245); // 레이아웃 배경 색
+		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
+		
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 200, 450, 300);
 		contentPane = new JPanel();
@@ -59,34 +64,58 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 		setContentPane(contentPane);
 
 		JPanel panelBottom = new JPanel();
+		panelBottom.setBackground(bgColor);
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		panelBottom.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
 		btnConfirm = new JButton("확인");
+		btnConfirm.setBackground(btnBgColor); // 버튼 배경색
+		btnConfirm.setForeground(Color.WHITE); // 버튼 글씨
+		btnConfirm.setFont(new Font("맑은 고딕", Font.BOLD, 12)); // 글씨 폰트 종류, 크기
 		btnConfirm.setEnabled(false);
 		btnConfirm.addActionListener(this);
 		panelBottom.add(btnConfirm);
 
 		JButton btnCancel = new JButton("취소");
+		btnCancel.setBackground(btnBgColor);
+		btnCancel.setForeground(Color.WHITE);
+		btnCancel.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		btnCancel.addActionListener(this);
 		panelBottom.add(btnCancel);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(bgColor);
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.setLayout(null);
 
+		/*
+		 * 화면에서 임의로 위치 조정 참조 코드 : 
+		 * https://m.blog.naver.com/javaking75/140157948347 
+		 */
+		
 		JButton btnShowCertiNum = new JButton("인증번호");
+		btnShowCertiNum.setBounds(80, 60, 100, 30); // 화면에서의 위치
+		btnShowCertiNum.setBackground(new Color(191, 160, 237)); // 버튼 배경색
+		btnShowCertiNum.setForeground(Color.WHITE); // 글자색
+		btnShowCertiNum.setFont(new Font("맑은 고딕", Font.BOLD, 12)); // 글자 폰트 종류, 크기
 		btnShowCertiNum.addActionListener(this);
 		panel.add(btnShowCertiNum);
 
 		lblCertified = new JLabel("인증번호 : ");
+		lblCertified.setBounds(190, 60, 200, 30); // 회면에서의 위치
+		lblCertified.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		panel.add(lblCertified);
 
 		txtCkCertifiedNum = new JTextField();
+		txtCkCertifiedNum.setBounds(80, 100, 150, 30); // 화면에서의 위치
 		panel.add(txtCkCertifiedNum);
 		txtCkCertifiedNum.setColumns(10);
 
 		btnCkCertified = new JButton("인증 확인");
+		btnCkCertified.setBounds(240, 100, 100, 30); // 화면에서의 위치
+		btnCkCertified.setBackground(new Color(191, 160, 237));
+		btnCkCertified.setForeground(Color.WHITE);
+		btnCkCertified.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		btnCkCertified.setEnabled(false);
 		btnCkCertified.addActionListener(this);
 		panel.add(btnCkCertified);
@@ -103,7 +132,6 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		boolean flag = false;
 
 		if (cmd.equals("인증번호")) {
 
@@ -130,6 +158,7 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 		}
 
 		if (cmd.equals("취소")) {
+			CafeTelCerti.this.setFlag(false);
 			CafeTelCerti.this.dispose();
 		}
 
