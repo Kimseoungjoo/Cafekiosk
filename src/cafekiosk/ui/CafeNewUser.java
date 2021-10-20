@@ -13,6 +13,8 @@ import cafekiosk.domain.UserDTO;
 import cafekiosk.persistence.UserDAO;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,9 +30,10 @@ public class CafeNewUser extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTextField name;
 	private JTextField nickname;
-	private JTextField tel;
-	private JTextField textField;
-
+	private JTextField tel;	
+	private JButton btnTelCerti;
+	private JButton btnJoin;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -62,10 +65,12 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		contentPane.add(panelBottom, BorderLayout.SOUTH);
 		panelBottom.setLayout(new GridLayout(0, 2, 0, 0));
 
-		JButton btnJoin = new JButton("회원가입");
+		btnJoin = new JButton("회원가입");
+		// 버튼 모양
 		btnJoin.setBackground(new Color(191, 160, 237));
 		btnJoin.setForeground(Color.WHITE);
 		btnJoin.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btnJoin.setEnabled(false); // 버튼 비활성화
 		btnJoin.addActionListener(this);
 		panelBottom.add(btnJoin);
 
@@ -116,29 +121,28 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		panelTel.add(tel);
 		tel.setColumns(10);
 		
-		JButton btnTelCerti = new JButton("전화번호 인증");
+		btnTelCerti = new JButton("전화번호 인증");
+		// 버튼 모양
 		btnTelCerti.setHorizontalAlignment(SwingConstants.LEFT);
-		btnTelCerti.setBackground(new Color(191, 160, 237));
+		btnTelCerti.setBackground(new Color(128, 65, 217));
 		btnTelCerti.setForeground(Color.WHITE);
-		btnTelCerti.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btnTelCerti.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		btnTelCerti.addActionListener(this);
 		panelTel.add(btnTelCerti);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String cmd = e.getActionCommand();
+		String cmd = e.getActionCommand(); // 버튼 클릭시 버튼 이름 가져오기
 
-		if (cmd.equals("회원가입")) {
+		if (cmd.equals("회원가입")) { // 회원가입 버튼 클릭
 			UserDTO dto = new UserDTO();
 			UserDAO dao = new UserDAO();
 
-			if (name.getText().equals("") || name.getText().equals(" ")) {
+			if (name.getText().equals("") || name.getText().equals(" ")) { // 이름 입력칸이 비어있을 경우
 				JOptionPane.showMessageDialog(null, "이름을 입력하세요.", "INFORMATION_MESSAGE", JOptionPane.ERROR_MESSAGE);
-			} else if (nickname.getText().equals("") || nickname.getText().equals(" ")) {
+			} else if (nickname.getText().equals("") || nickname.getText().equals(" ")) { // 닉네임 입력칸이 비어있을 경우
 				JOptionPane.showMessageDialog(null, "닉네임을 입력하세요.", "INFORMATION_MESSAGE", JOptionPane.ERROR_MESSAGE);
-			} else if (tel.getText().equals("") || tel.getText().equals(" ")) {
-				JOptionPane.showMessageDialog(null, "전화번호를 입력하세요.", "INFORMATION_MESSAGE", JOptionPane.ERROR_MESSAGE);
 			} else {
 				dto.setName(name.getText());
 				dto.setNickname(nickname.getText());
@@ -167,7 +171,8 @@ public class CafeNewUser extends JFrame implements ActionListener {
 
 						CafeMain main = new CafeMain();
 						main.setVisible(true);
-						setVisible(false);
+//						setVisible(false);
+						this.dispose();
 					} else { // 실패
 						JOptionPane.showMessageDialog(null, "회원가입에 실패했습니다.", "INFORMATION_MESSAGE",
 								JOptionPane.ERROR_MESSAGE);
@@ -175,6 +180,9 @@ public class CafeNewUser extends JFrame implements ActionListener {
 				} else { // 가입된 전화번호가 있다면
 					JOptionPane.showMessageDialog(null, "이미 존재하는 전화번호 입니다.", "INFORMATION_MESSAGE",
 							JOptionPane.ERROR_MESSAGE);
+					tel.setText("");
+					btnTelCerti.setText("전화번호 인증");
+					btnTelCerti.setEnabled(true);
 				}
 			}
 		} else if (cmd.equals("취소")) {
@@ -183,8 +191,37 @@ public class CafeNewUser extends JFrame implements ActionListener {
 			tel.setText("");
 
 			CafeMain main = new CafeMain();
-			main.setVisible(true);
-			setVisible(false);
+			main.setVisible(true); // main창 띄우기
+//			setVisible(false);
+			this.dispose(); // 현재 창 닫기
+		} else if (cmd.equals("전화번호 인증")) {
+//			CafeTelCertified telCertified = new CafeTelCertified();
+//			telCertified.setVisible(true);
+			
+			if(tel.getText().equals("") || tel.getText().equals(" ")) {
+				JOptionPane.showMessageDialog(null, "전화번호를 입력하세요.", "INFORMATION_MESSAGE", JOptionPane.ERROR_MESSAGE);
+			} else {
+			
+				// 다이얼로그 창 생성 참조 코드 :
+				// https://earthconquest.tistory.com/102
+
+				// 다이얼로그 객체 생성
+				CafeTelCerti telCerified = new CafeTelCerti();
+				telCerified.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				// 다이얼로그 창 생성
+				telCerified.setModal(true);
+				// 다이얼로그 창 띄우기
+				telCerified.setVisible(true);
+
+				boolean flag = telCerified.getFlag(); // 다이얼로그창(자식 클래스)에서 인증 여부 가져오기
+
+				if (flag == true) {
+					btnTelCerti.setText("인증 완료"); // 전화번호 인증버튼 텍스트 변경
+					btnTelCerti.setEnabled(false); // 전화번호 인증버튼 비활성화
+					btnJoin.setEnabled(true); // 회원가입 버튼 활성화
+				}
+			}
+			
 		}
 	}
 
