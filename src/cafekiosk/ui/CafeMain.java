@@ -26,6 +26,7 @@ import java.awt.Color;
 public class CafeMain extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
+	private boolean flag = false;
 
 	
 	public static void main(String[] args) {
@@ -77,11 +78,11 @@ public class CafeMain extends JFrame implements ActionListener {
 		JLabel lblMainImg = new JLabel(""); // 라벨 생성
 		lblMainImg.setHorizontalAlignment(SwingConstants.CENTER);
 		// 이미지 아이콘 생성
-		ImageIcon iconImg = new ImageIcon(CafeMain.class.getResource("/cafekiosk/img/cafeKiosk-main.jpg"));
+		ImageIcon iconImg = new ImageIcon(CafeMain.class.getResource("/image/cafeKiosk-main.jpg"));
 		// iconMain에서 image 추출
 		Image imgTemp = iconImg.getImage();
 		// 추출된 이미지의 크기를 조절하여 새로운 이미지 객체 생성
-		Image mainImg = imgTemp.getScaledInstance(500, 450, Image.SCALE_SMOOTH);
+		Image mainImg = imgTemp.getScaledInstance(500, 440, Image.SCALE_SMOOTH);
 		// 새로운 이미지 객체(크기가 조정된)로 imageIcon 객체 생성 
 		ImageIcon iconMain = new ImageIcon(mainImg);
 		// 라벨에 사이즈가 조절된 imageIcon 삽입
@@ -99,11 +100,13 @@ public class CafeMain extends JFrame implements ActionListener {
 			 */
 			CafeNewUser newUser = new CafeNewUser();
 			newUser.setVisible(true);
-			setVisible(false);
+//			setVisible(false);
+			this.dispose();
 		} else if(cmd.equals("주문")){
 			CafeMenu menu = new CafeMenu();
 			menu.setVisible(true);
-			setVisible(false);
+//			setVisible(false);
+			this.dispose();
 		}
 	}
 }
