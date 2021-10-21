@@ -31,6 +31,7 @@ import cafekiosk.domain.CafeDTO;
 import cafekiosk.domain.OrderDTO;
 import cafekiosk.ui.CafeMain;
 import cafekiosk.ui.CafePayment;
+import cafekiosk.ui.MemOrder;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -57,6 +58,7 @@ public class CafeMenu extends JFrame implements ActionListener {
    private Vector<OrderDTO> vetList = new Vector<OrderDTO>(); // 결제 버튼 시 모든 주문 리스트 
    private Vector<CafeDTO> vetMenu; // 음료 버튼 시 담는 변수
    
+   MemOrder mo = new MemOrder();
    private CafeDAO dao;
    private CafeDTO dto;
    private OrderDTO ordto;
@@ -257,6 +259,7 @@ public class CafeMenu extends JFrame implements ActionListener {
             			vetList.add(ordto);
             		}
             		
+            		mo.setSum(sum);
             		
             		CafePayment payment = new CafePayment();
             		payment.setVisible(true);
@@ -326,6 +329,7 @@ public class CafeMenu extends JFrame implements ActionListener {
             if (count == 0) {
                String cmd = e.getActionCommand();
                if (cmd.equals("자몽에이드")) {
+            	   count +=1; 
                   dao = new CafeDAO();
                   vetMenu = new Vector<CafeDTO>();
                   vetMenu = dao.getList(cmd);
@@ -351,6 +355,7 @@ public class CafeMenu extends JFrame implements ActionListener {
             if (count == 0) {
                String cmd = e.getActionCommand();
                if (cmd.equals("레몬에이드")) {
+            	   count +=1; 
                   dao = new CafeDAO();
                   vetMenu = new Vector<CafeDTO>();
                   vetMenu = dao.getList(cmd);
