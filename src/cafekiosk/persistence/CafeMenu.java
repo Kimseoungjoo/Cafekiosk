@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.CafeDTO;
 import cafekiosk.domain.OrderDTO;
+import cafekiosk.ui.CafeMain;
 import cafekiosk.ui.CafePayment;
 
 import javax.swing.JTable;
@@ -48,21 +48,26 @@ public class CafeMenu extends JFrame implements ActionListener {
          btnPam, btnRoob;
    private JTable table;
    private String orderList[] = { "음료", "가격","수량" };
-   
    private DefaultTableModel model;
    private JPanel panel_5;
    private JButton btnNewButton, btnNewButton_1;
    private int count = 0, menuNum = 0; // count 배열로 ade 두번 넣지 않게하기 
    private JLabel lblcount = new JLabel((count+1)+"");
+
+   private Vector<OrderDTO> vetList = new Vector<OrderDTO>(); // 결제 버튼 시 모든 주문 리스트 
+   private Vector<CafeDTO> vetMenu; // 음료 버튼 시 담는 변수
    
-   private Vector<CafeDTO> vetMenu;
    private CafeDAO dao;
    private CafeDTO dto;
    private OrderDTO ordto;
+   private int sum=0;
    private boolean flag, selFlag;
-   private JButton btnPayment,btnSelect;
+   private JButton btnSelect;
    private JButton btnDelete;
    private JLabel lblAllpay;
+   private JPanel panel_6;
+   private JButton btnTurn;
+   private JButton btnPayment;
 
    public static void main(String[] args) {
       EventQueue.invokeLater(new Runnable() {
@@ -137,10 +142,10 @@ public class CafeMenu extends JFrame implements ActionListener {
             TitledBorder.TOP, null, null));
       contentPane.add(panel_4, BorderLayout.SOUTH);
       GridBagLayout gbl_panel_4 = new GridBagLayout();
-      gbl_panel_4.columnWidths = new int[]{232, 232, 0};
-      gbl_panel_4.rowHeights = new int[]{428, 0, 0};
-      gbl_panel_4.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-      gbl_panel_4.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+      gbl_panel_4.columnWidths = new int[]{232, 0, 232, 0};
+      gbl_panel_4.rowHeights = new int[]{428, 0, 0, 0};
+      gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+      gbl_panel_4.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
       panel_4.setLayout(gbl_panel_4);
       
       // table 안에 내용
@@ -157,7 +162,6 @@ public class CafeMenu extends JFrame implements ActionListener {
             table.setBackground(Color.yellow);
 //            table.setBackground(Color.WHITE);
             table.setBorder(null);
-            
             scrollPane1.setViewportView(table);
       panel_5 = new JPanel();
       panel_5.setBackground(Color.YELLOW);
@@ -166,7 +170,7 @@ public class CafeMenu extends JFrame implements ActionListener {
             GridBagConstraints gbc_panel_5 = new GridBagConstraints();
             gbc_panel_5.insets = new Insets(0, 0, 5, 0);
             gbc_panel_5.fill = GridBagConstraints.BOTH;
-            gbc_panel_5.gridx = 1;
+            gbc_panel_5.gridx = 2;
             gbc_panel_5.gridy = 0;
             panel_4.add(panel_5, gbc_panel_5);
             panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -179,53 +183,43 @@ public class CafeMenu extends JFrame implements ActionListener {
             // 주문리스트 밑에 라벨 
             lblAllpay = new JLabel("총 금액");
             GridBagConstraints gbc_lblAllpay = new GridBagConstraints();
-            gbc_lblAllpay.insets = new Insets(0, 0, 0, 5);
+            gbc_lblAllpay.insets = new Insets(0, 0, 5, 5);
             gbc_lblAllpay.gridx = 0;
             gbc_lblAllpay.gridy = 1;
             panel_4.add(lblAllpay, gbc_lblAllpay);
             
-            //결제하기 버튼 추가 / 이벤트(CafePayMent 클래스로)
-            btnPayment = new JButton("결제하기 ");
-            GridBagConstraints gbc_btnPayment = new GridBagConstraints();
+            panel_6 = new JPanel();
+            panel_6.setBackground(Color.YELLOW);
+            GridBagConstraints gbc_panel_6 = new GridBagConstraints();
+            gbc_panel_6.insets = new Insets(0, 0, 5, 0);
+            gbc_panel_6.fill = GridBagConstraints.BOTH;
+            gbc_panel_6.gridx = 2;
+            gbc_panel_6.gridy = 1;
+            panel_4.add(panel_6, gbc_panel_6);
             
-            gbc_btnPayment.gridx = 1;
-            gbc_btnPayment.gridy = 1;
-            panel_4.add(btnPayment, gbc_btnPayment);
-          
-            // 결제 창으로 
-            btnPayment.addActionListener(new ActionListener() {
+            btnTurn = new JButton("이전");
+            panel_6.add(btnTurn);
+            btnTurn.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					CafePayment payment = new CafePayment();
-					payment.setVisible(true);
+					CafeMain main = new CafeMain();
+					main.setVisible(true);
 					setVisible(false);
 				}
 			});
-            
             // db에 사용자 주문 값 넣기 / 수량 넣기  
             btnSelect = new JButton("선택");
             btnSelect.addActionListener(new ActionListener() {
                
                @Override
                public void actionPerformed(ActionEvent e) {
+            	   sum += Integer.parseInt((String)table.getValueAt(menuNum, 1));                	  
                   
-                  ordto = new OrderDTO(); // DB(orderTBL)변수
-                 // DB(orderTBL)변수 넣기 
-                  ordto.setNo(menuNum);
-                  ordto.setName(vetMenu.get(0).getName());
-                  ordto.setPrice(count*vetMenu.get(0).getPrice());
-                  ordto.setCount(count);
-                  
-                  //CafeDAO.java > insertList
-                  flag = dao.insertList(ordto);
-                  
-                  if(flag) {
-                	  JOptionPane.showMessageDialog(getParent(), "선택했습니다");
-                  }
                   menuNum += 1; // 테이블 다음 행 번호
                   count = 0; // count(수량) 초기화
                   lblcount.setText(1+""); // 수량(panel) 라벨 초기화
+                  lblAllpay.setText("총 금액 :"+sum);
                }
             });
             panel_5.add(btnSelect);
@@ -236,16 +230,40 @@ public class CafeMenu extends JFrame implements ActionListener {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// 예시
-//					flag = dao.deleteList(menuNum-1);
+					sum -= Integer.parseInt((String)table.getValueAt(table.getSelectedRow(), 1));
 					model.removeRow(table.getSelectedRow());
-					flag = dao.deleteList(table.getSelectedRow());
-					if(flag) {
-						JOptionPane.showMessageDialog(getParent(), "삭제되었습니다");
-					}
-					
+					menuNum-=1;
+					lblAllpay.setText("총 금액 :"+sum);
 				}
 			});
+            //결제하기 버튼 추가 / 이벤트(CafePayMent 클래스로)
+            btnPayment = new JButton("결제하기");
+            panel_6.add(btnPayment); 
+            
+            // 결제 창으로 
+            btnPayment.addActionListener(new ActionListener() {
+            	
+            	@Override
+            	public void actionPerformed(ActionEvent e) {
+            		
+//                  DB(orderTBL) 변수 넣기 
+            		for(int i = 0 ; i<table.getRowCount();i++) {
+            			ordto = new OrderDTO(); // DB(orderTBL)변수
+            			ordto.setNo(i);
+            			ordto.setName((String)table.getValueAt(i, 0));
+            			ordto.setPrice(Integer.parseInt((String)table.getValueAt(i, 1)));
+            			ordto.setCount(Integer.parseInt((String)table.getValueAt(i, 2)));
+            			dao.insertList(ordto);
+            			vetList.add(ordto);
+            		}
+            		
+            		
+            		CafePayment payment = new CafePayment();
+            		payment.setVisible(true);
+            		setVisible(false);
+            	}
+            });
+            
             panel_5.add(btnDelete);
       setSize(500, 700);
    }
@@ -361,8 +379,10 @@ public class CafeMenu extends JFrame implements ActionListener {
          public void actionPerformed(ActionEvent e) {
             count -= 1;
             lblcount.setText(count+"");
+            
             table.setValueAt(count+"", menuNum, 2);
             table.setValueAt((count*vetMenu.get(0).getPrice())+"", menuNum, 1);
+            
             if (count == 0) {
                JOptionPane.showMessageDialog(getParent(), "더 이상 줄일 수 없습니다");
             }
@@ -389,7 +409,7 @@ public class CafeMenu extends JFrame implements ActionListener {
       return btn;
    }
 
-
+// 카페 패널 작성 / 버튼EVENT(DB(menuTBL)가져오기) / 테이블 추가 
    public JPanel coffeeMenuPanel() {
       panel_2 = new JPanel();
       panel_2.setBackground(Color.WHITE);
@@ -400,17 +420,88 @@ public class CafeMenu extends JFrame implements ActionListener {
       btnamericano.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/americano.png")));
       panel_2.add(btnamericano);
 
-      btncafelatte = new JButton("");
-      btncafelatte.setBackground(new Color(255, 255, 224));
-      btncafelatte.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/cafelatte.png")));
-      panel_2.add(btncafelatte);
+	      btnamericano.setActionCommand("아메리카노");
+	      btnamericano.addActionListener(new ActionListener() {
 
-      btnespresso = new JButton("");
-      btnespresso.setBackground(new Color(255, 255, 224));
-      btnespresso.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/espresso.png")));
-      panel_2.add(btnespresso);
-      return panel_2;
-   }
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
+
+	            if ( count== 0) {
+	               String cmd = e.getActionCommand();
+	               if (cmd.equals("아메리카노")) {
+	                  count +=1; 
+	                  dao = new CafeDAO();
+	                  vetMenu = new Vector<CafeDTO>();
+	                  vetMenu= dao.getList(cmd);
+	                  String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
+	                  model.addRow(list);
+	                  
+	               }
+	            } else {
+	               JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
+	            }
+	            panel_5.revalidate();
+	         }
+	      });
+
+	      btncafelatte = new JButton("");
+	      btncafelatte.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/cafelatte.png")));
+	      panel_2.add(btncafelatte);
+	      btncafelatte.setActionCommand("카페라떼");
+	      btncafelatte.addActionListener(new ActionListener() {
+
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
+	            if (count == 0) {
+	               String cmd = e.getActionCommand();
+	               if (cmd.equals("카페라떼")) {
+	                  dao = new CafeDAO();
+	                  dto = new CafeDTO();
+	                  vetMenu = new Vector<CafeDTO>();
+	                  vetMenu = dao.getList(cmd);
+	                  String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
+	                  model.addRow(list);
+
+	               }
+	            } else {
+	               JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
+	            }
+	            panel_5.revalidate();
+	         }
+	      });
+
+	      btnespresso = new JButton("");
+	      btnespresso.setIcon(new ImageIcon(CafeMenu.class.getResource("/image/espresso.png")));
+	      panel_2.add(btnespresso);
+	      btnespresso.setActionCommand("에스프레소");
+	      btnespresso.addActionListener(new ActionListener() {
+	         
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
+	            if (count == 0) {
+	               String cmd = e.getActionCommand();
+	               if (cmd.equals("에스프레소")) {
+	                  dao = new CafeDAO();
+	                  dto = new CafeDTO();
+	                  vetMenu = new Vector<CafeDTO>();
+
+	                  vetMenu = dao.getList(cmd);
+	                  
+	                  String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""};
+	                  model.addRow(list);
+
+	               }
+	            } else {
+	               JOptionPane.showMessageDialog(getParent(), "이미 주문리스트에 추가되었습니다 \n수량을 체크하세요");
+	            }
+	            panel_5.revalidate();
+	         }
+	      });
+	      
+	      
+	      return panel_2;
+	   }
+
 
    
 
