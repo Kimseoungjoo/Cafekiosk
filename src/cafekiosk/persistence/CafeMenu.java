@@ -21,6 +21,8 @@ import java.awt.Color;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
@@ -70,6 +72,7 @@ public class CafeMenu extends JFrame implements ActionListener {
    private JPanel panel_6;
    private JButton btnTurn;
    private JButton btnPayment;
+   OrderDAO orderDAO = new OrderDAO();
 
    public static void main(String[] args) {
       EventQueue.invokeLater(new Runnable() {
@@ -268,6 +271,19 @@ public class CafeMenu extends JFrame implements ActionListener {
             
             panel_5.add(btnDelete);
       setSize(500, 700);
+      
+
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+	        @Override
+	        public void windowClosing(WindowEvent e) {
+	        	
+	        	
+	        	
+	           orderDAO.deleteOrderTBL();
+	           System.exit(0);
+	        }
+	    });
    }
 
    // 메뉴 버튼 이벤트시 메뉴창 띄우는 메소드 불러오기
@@ -602,6 +618,31 @@ public class CafeMenu extends JFrame implements ActionListener {
       panel_3.add(btnRoob);
       
       return panel_3;
+   }
+   
+   
+   public void showOrder() {
+	   
+	   Vector<OrderDTO> list = new Vector<OrderDTO>();
+	   list = orderDAO.payOrder();
+	   
+	   if (!list.isEmpty()) {
+
+			for (OrderDTO dto : list) {
+
+				Vector<Object> vec = new Vector<Object>();
+
+				vec.add(dto.getName());
+				vec.add(dto.getPrice());
+				vec.add(dto.getCount());
+
+				model.addRow(vec);
+				
+			}
+	   
+	   
+   }
+	   
    }
 
 }
