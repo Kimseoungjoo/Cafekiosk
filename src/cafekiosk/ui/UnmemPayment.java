@@ -177,10 +177,12 @@ public class UnmemPayment extends JFrame implements ActionListener {
 		
 	} else {
 		
+		
 		CafeMenu cm = new CafeMenu();
 		cm.setVisible(true);
 		this.setVisible(false);
 		cm.showOrder();
+		orderDAO.deleteOrderTBL();
 		
 	}
 		

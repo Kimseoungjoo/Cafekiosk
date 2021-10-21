@@ -238,12 +238,13 @@ public class MemPayment extends JFrame implements ActionListener {
 			}
 
 		} else {
-
+			
 			pointDAO.deletePointTBL();
 			CafeMenu cm = new CafeMenu();
-			cm.showOrder();
 			cm.setVisible(true);
 			this.setVisible(false);
+			cm.showOrder();
+			orderDAO.deleteOrderTBL();
 			
 
 		}

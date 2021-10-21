@@ -189,10 +189,8 @@ public class MemOrder extends JFrame implements ActionListener {
 
 		if (e.getActionCommand().equals("포인트 사용 결제")) {
 
-
 			if (!textField_2.getText().equals("")
-					&& Integer.parseInt(textField_1.getText()) > Integer.parseInt(textField_2.getText())) {
-
+					&& Integer.parseInt(textField_1.getText()) >= Integer.parseInt(textField_2.getText())) {
 
 				try {
 
@@ -257,12 +255,14 @@ public class MemOrder extends JFrame implements ActionListener {
 		}
 
 		if (e.getActionCommand().equals("이전")) {
+			
 
 			cm.setVisible(true);
 			this.setVisible(false);
 
 			cm.showOrder();
-
+			odao.deleteOrderTBL();
+			
 
 		}
 

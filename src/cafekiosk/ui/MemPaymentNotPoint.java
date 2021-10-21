@@ -191,6 +191,7 @@ public class MemPaymentNotPoint extends JFrame implements ActionListener {
 			cm.setVisible(true);
 			this.setVisible(false);
 			cm.showOrder();
+			orderDAO.deleteOrderTBL();
 
 		}
 	}

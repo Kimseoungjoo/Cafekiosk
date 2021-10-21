@@ -49,7 +49,7 @@ public class CafeMenu extends JFrame implements ActionListener {
    private JPanel panel_1, panel_2, panel_3, panel_4;
    private JButton btnGrapeAde, btnGrapefruitsAde, btnLemonAde, btnamericano, btncafelatte, btnespresso, btnEgr,
          btnPam, btnRoob;
-   private JTable table;
+   private JTable table = new JTable();
    private String orderList[] = { "음료", "가격","수량" };
    private DefaultTableModel model;
    private JPanel panel_5;
@@ -59,8 +59,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 
    private Vector<OrderDTO> vetList = new Vector<OrderDTO>(); // 결제 버튼 시 모든 주문 리스트 
    private Vector<CafeDTO> vetMenu; // 음료 버튼 시 담는 변수
-   private MemOrder mo = new MemOrder();
-   private CafeDAO dao;
+   private CafeDAO dao = new CafeDAO();
    private CafeDTO dto;
    private OrderDTO ordto;
    private int sum=0;
@@ -70,7 +69,6 @@ public class CafeMenu extends JFrame implements ActionListener {
    private JPanel panel_6;
    private JButton btnTurn,btnPayment;
    OrderDAO orderDAO = new OrderDAO();
-
    public static void main(String[] args) {
       EventQueue.invokeLater(new Runnable() {
          public void run() {
@@ -247,6 +245,8 @@ public class CafeMenu extends JFrame implements ActionListener {
             	
             	@Override
             	public void actionPerformed(ActionEvent e) {
+            		vetList = new Vector<OrderDTO>();
+            		
             		
 //                  DB(orderTBL) 변수 넣기 
             		for(int i = 0 ; i<table.getRowCount();i++) {
@@ -254,8 +254,12 @@ public class CafeMenu extends JFrame implements ActionListener {
             			ordto.setNo(i);
             			ordto.setName((String)table.getValueAt(i, 0));
             			ordto.setPrice(Integer.parseInt((String)table.getValueAt(i, 1)));
-            			ordto.setCount(Integer.parseInt((String)table.getValueAt(i, 2)));
-            			dao.insertList(ordto);
+              			ordto.setCount(Integer.parseInt((String)table.getValueAt(i, 2)));
+            			
+              			//db insert
+              			dao.insertList(ordto);
+              			
+              			//결제
             			vetList.add(ordto);
             		}
             		
@@ -314,7 +318,7 @@ public class CafeMenu extends JFrame implements ActionListener {
                String cmd = e.getActionCommand();
                if (cmd.equals("청포도에이드")) {
                   count +=1; // 이떄의 count는 수량 1개!
-                  dao = new CafeDAO();
+//                  dao = new CafeDAO();
                   vetMenu = new Vector<CafeDTO>();
                   vetMenu= dao.getList(cmd);
                   String list[] = { vetMenu.get(0).getName(), vetMenu.get(0).getPrice()+"", 1+""}; // model.addRow(vetMenu)를 해줘야하지만 테이블에 보여주는 데이터가 다르기 떄문에
@@ -618,22 +622,17 @@ public class CafeMenu extends JFrame implements ActionListener {
    }
    
    
-   public void showOrder() {
+   public void showOrder() {	   
 	   
-	   Vector<OrderDTO> list = new Vector<OrderDTO>();
-	   list = orderDAO.payOrder();
+	    Vector<OrderDTO> list = orderDAO.payOrder();
 	   
 	   if (!list.isEmpty()) {
 
 			for (OrderDTO dto : list) {
 
-				Vector<Object> vec = new Vector<Object>();
 
-				vec.add(dto.getName());
-				vec.add(dto.getPrice());
-				vec.add(dto.getCount());
-
-				model.addRow(vec);
+				String list1[] = { dto.getName(), dto.getPrice()+"", dto.getCount()+""};
+				model.addRow(list1);
 				
 			}
 	   
