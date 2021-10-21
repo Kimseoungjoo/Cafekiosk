@@ -259,7 +259,6 @@ public class CafeMenu extends JFrame implements ActionListener {
             			vetList.add(ordto);
             		}
             		
-            		mo.setSum(sum);
             		
             		CafePayment payment = new CafePayment();
             		payment.setVisible(true);
