@@ -23,6 +23,8 @@ import javax.swing.JScrollPane;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -68,8 +70,7 @@ public class MemPayment extends JFrame implements ActionListener {
 
 	private int point;
 	private int plusPoint;
-	
-	
+
 	UserDTO userDTO = new UserDTO();
 	PointDTO pointDTO = pointDAO.getrow();
 
@@ -109,7 +110,7 @@ public class MemPayment extends JFrame implements ActionListener {
 
 		table = new JTable();
 
-		String columnNames[] = { "번호", "이름", "가격", "수량" };
+		String columnNames[] = { "이름", "가격", "수량" };
 
 		model = new DefaultTableModel(columnNames, 0);
 		table.setModel(model);
@@ -159,6 +160,10 @@ public class MemPayment extends JFrame implements ActionListener {
 		point = pointDTO.getPoint();
 
 		lblNewLabel_4.setText(point + "원");
+		
+		if(sum<point) {
+			
+		}
 
 		lblNewLabel_6.setText(sum - point + "원");
 
@@ -167,12 +172,21 @@ public class MemPayment extends JFrame implements ActionListener {
 
 		btnNewButton = new JButton("결제");
 		btnNewButton.addActionListener(this);
-		
+
 		panel1.add(btnNewButton);
 
 		btnNewButton_1 = new JButton("취소");
 		btnNewButton_1.addActionListener(this);
 		panel1.add(btnNewButton_1);
+		
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+	        @Override
+	        public void windowClosing(WindowEvent e) {
+	           orderDAO.deleteOrderTBL();
+	           System.exit(0);
+	        }
+	    });
 
 	}
 
@@ -186,7 +200,7 @@ public class MemPayment extends JFrame implements ActionListener {
 			for (OrderDTO dto : list) {
 
 				Vector<Object> vec = new Vector<Object>();
-				vec.add(dto.getNo());
+
 				vec.add(dto.getName());
 				vec.add(dto.getPrice());
 				vec.add(dto.getCount());
@@ -211,14 +225,24 @@ public class MemPayment extends JFrame implements ActionListener {
 
 			orderDAO.deleteOrderTBL();
 			pointDAO.deletePointTBL();
-			JOptionPane.showMessageDialog(getParent(), "카드를 넣어주세요");
+
+			Object[] options = { "OK" };
+			int n = JOptionPane.showOptionDialog(getParent(), "카드를 넣어주세요", "결제창", JOptionPane.PLAIN_MESSAGE,
+					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+			if (n == 0) {
+				CafeMain cm = new CafeMain();
+				cm.setVisible(true);
+				setVisible(false);
+			}
 
 		} else {
-			
+
 			pointDAO.deletePointTBL();
 			CafeMenu cm = new CafeMenu();
 			cm.setVisible(true);
 			this.setVisible(false);
+			cm.showOrder();
 
 		}
 	}
