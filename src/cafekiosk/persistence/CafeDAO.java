@@ -169,8 +169,6 @@ public class CafeDAO {
 //		return flag;
 	}
 
-	
-
 	public boolean deleteList(int no) {
 		boolean flag = false;
 		Connection con = null;
@@ -198,30 +196,30 @@ public class CafeDAO {
 		return flag;
 	}
 
-	public int orderSum() {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int sum = 0;
-		try {
-			con = getConnection();
-			String sql = "select sum(price) from orderTBL";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				sum = rs.getInt("sum(price)");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-
-		return sum;
-	}
+//	public int orderSum() {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		int sum = 0;
+//		try {
+//			con = getConnection();
+//			String sql = "select sum(price) from orderTBL";
+//			pstmt = con.prepareStatement(sql);
+//			rs = pstmt.executeQuery();
+//			if (rs.next()) {
+//				sum = rs.getInt("sum(price)");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//			}
+//		}
+//
+//		return sum;
+//	}
 
 }
