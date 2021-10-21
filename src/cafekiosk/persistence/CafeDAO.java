@@ -83,13 +83,9 @@ public class CafeDAO {
 
 		return dto;
 
+	}
 
-
-	}	
-
-	
-
-	public  /*CafeDTO*/ Vector<CafeDTO> getList(String menu) {
+	public /* CafeDTO */ Vector<CafeDTO> getList(String menu) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -98,15 +94,15 @@ public class CafeDAO {
 		Vector<CafeDTO> vetList = new Vector<CafeDTO>();
 		try {
 			con = getConnection();
-			
+
 			String sql = "select * from menuTBL where name = ?";
-			
+
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,menu);
+			pstmt.setString(1, menu);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				
+
+			if (rs.next()) {
+
 				dto = new CafeDTO();
 				dto.setNo(rs.getInt("no"));
 				dto.setName(rs.getString("name"));
@@ -116,7 +112,7 @@ public class CafeDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				rs.close();
 				pstmt.close();
@@ -128,29 +124,41 @@ public class CafeDAO {
 //		return dto;
 		return vetList;
 	}
-	public  boolean insertList(OrderDTO dto) {
+
+//	public void insertVector(Vector<OrderDTO> vet) {
+//		for (OrderDTO dto : vet) {
+//			Vector<OrderDTO> v = new Vector<OrderDTO>();
+//			v.add(dto.getNo());
+//			v.add(dto.getName());
+//			v.add(dto.getPrice());
+//			v.add(dto.getCount());
+//			insertList(v);
+//
+//		}
+//	}
+
+	public void insertList(OrderDTO dto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean flag = false;
+		int result =0;
+//		boolean flag = false;
 		try {
 			con = getConnection();
-			
-			String sql = "insert into orderTBL values(?,?,?,?)";
 
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,dto.getNo());
-			pstmt.setString(2,dto.getName());
-			pstmt.setInt(3,dto.getPrice());
-			pstmt.setInt(4,dto.getCount());
-			int result = pstmt.executeUpdate();
-			
-			if(result>0) {
-				flag = true;
-			
-			}
+			String sql = "insert into orderTBL values(?,?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, dto.getNo());
+				pstmt.setString(2, dto.getName());
+				pstmt.setInt(3, dto.getPrice());
+				pstmt.setInt(4, dto.getCount());
+				result = pstmt.executeUpdate();
+
+//			if (result > 0) {
+////				flag = true;
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				pstmt.close();
 				con.close();
@@ -158,25 +166,29 @@ public class CafeDAO {
 				e2.printStackTrace();
 			}
 		}
-		return flag;
+//		return flag;
 	}
 
 	public boolean deleteList(int no) {
 		boolean flag = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;
+
 		try {
 			con = getConnection();
 			String sql = "delete from orderTBL where no = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, no);
-			flag = pstmt.execute();
-			
+			int result = pstmt.executeUpdate();
+			if (result > 0) {
+				flag = true;
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
-				
+
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -184,5 +196,30 @@ public class CafeDAO {
 		return flag;
 	}
 
+//	public int orderSum() {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		int sum = 0;
+//		try {
+//			con = getConnection();
+//			String sql = "select sum(price) from orderTBL";
+//			pstmt = con.prepareStatement(sql);
+//			rs = pstmt.executeQuery();
+//			if (rs.next()) {
+//				sum = rs.getInt("sum(price)");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//			}
+//		}
+//
+//		return sum;
+//	}
 
 }
