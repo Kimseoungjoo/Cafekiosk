@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -80,7 +82,7 @@ public class UnmemPayment extends JFrame implements ActionListener {
 
 		table = new JTable();
 
-		String columnNames[] = { "번호", "이름", "가격", "수량" };
+		String columnNames[] = { "이름", "가격", "수량" };
 
 		model = new DefaultTableModel(columnNames, 0);
 		table.setModel(model);
@@ -117,6 +119,14 @@ public class UnmemPayment extends JFrame implements ActionListener {
 
 		lblNewLabel_6.setText(sum+ "원");
 		
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+	        @Override
+	        public void windowClosing(WindowEvent e) {
+	           orderDAO.deleteOrderTBL();
+	           System.exit(0);
+	        }
+	    });
 	
 
 	}
@@ -131,7 +141,7 @@ public class UnmemPayment extends JFrame implements ActionListener {
 			for (OrderDTO dto : list) {
 
 				Vector<Object> vec = new Vector<Object>();
-				vec.add(dto.getNo());
+			
 				vec.add(dto.getName());
 				vec.add(dto.getPrice());
 				vec.add(dto.getCount());
@@ -153,7 +163,16 @@ public class UnmemPayment extends JFrame implements ActionListener {
 	
 	if(cmd.equals("결제")) {
 		orderDAO.deleteOrderTBL();
-		JOptionPane.showMessageDialog(getParent(), "카드를 넣어주세요");
+	
+		Object[] options = { "OK" };
+		int n = JOptionPane.showOptionDialog(getParent(), "카드를 넣어주세요", "결제창", JOptionPane.PLAIN_MESSAGE,
+				JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+		if (n == 0) {
+			CafeMain cm = new CafeMain();
+			cm.setVisible(true);
+			setVisible(false);
+		}
 		
 		
 	} else {
@@ -161,6 +180,7 @@ public class UnmemPayment extends JFrame implements ActionListener {
 		CafeMenu cm = new CafeMenu();
 		cm.setVisible(true);
 		this.setVisible(false);
+		cm.showOrder();
 		
 	}
 		

@@ -18,6 +18,7 @@ public class OrderDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Vector<OrderDTO> list = new Vector<OrderDTO>();
+		
 
 		try {
 
@@ -25,6 +26,9 @@ public class OrderDAO {
 			String sql = "select * from orderTBL";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			
+			list.clear();
+			System.out.println(list);
 
 			while (rs.next()) {
 
