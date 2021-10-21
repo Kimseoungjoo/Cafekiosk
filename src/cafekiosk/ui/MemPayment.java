@@ -48,6 +48,7 @@ public class MemPayment extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_7;
 	private JLabel total;
 	int sum;
+<<<<<<< HEAD
 	private String tel;
 //	private String usePoint;
 //	
@@ -71,7 +72,11 @@ public class MemPayment extends JFrame implements ActionListener {
 	private int point;
 	private int plusPoint;
 
+=======
+	int point;
+>>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 	UserDTO userDTO = new UserDTO();
+	int plusPoint;
 	PointDTO pointDTO = pointDAO.getrow();
 
 	/**
@@ -172,7 +177,10 @@ public class MemPayment extends JFrame implements ActionListener {
 
 		btnNewButton = new JButton("결제");
 		btnNewButton.addActionListener(this);
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 		panel1.add(btnNewButton);
 
 		btnNewButton_1 = new JButton("취소");

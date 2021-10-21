@@ -28,7 +28,6 @@ import cafekiosk.persistence.CafeDAO;
 import cafekiosk.persistence.CafeMenu;
 import cafekiosk.persistence.OrderDAO;
 import cafekiosk.persistence.PointDAO;
-import jdk.internal.misc.FileSystemOption;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -190,12 +189,22 @@ public class MemOrder extends JFrame implements ActionListener {
 
 		if (e.getActionCommand().equals("포인트 사용 결제")) {
 
+<<<<<<< HEAD
 			if (!textField_2.getText().equals("")
 					&& Integer.parseInt(textField_1.getText()) > Integer.parseInt(textField_2.getText())) {
+=======
+			if (!textField_2.getText().equals("")/*&&
+					
+				Integer.parseInt(textField_2.getText())>Integer.parseInt(textField_1.getText())*/
+					) {
+>>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 
 				try {
+<<<<<<< HEAD
 
 					System.out.println(getSum());
+=======
+>>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 
 					tel = textField.getText();
 					point = textField_2.getText();
@@ -205,18 +214,34 @@ public class MemOrder extends JFrame implements ActionListener {
 					pointDAO.insertPoint(tel, Integer.parseInt(point));
 
 					MemPayment mp = new MemPayment();
+<<<<<<< HEAD
 //					mp.setTel(tel);
 //					mp.setUsePoint(point);
 
+=======
+>>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 					mp.setVisible(true);
 					this.setVisible(false);
+
+				} catch (NumberFormatException e1) {
+
+					if (textField.getText().equals("")) {
+						JOptionPane.showMessageDialog(getParent(), "휴대폰 번호를 입력해주세요");
+					} else if(textField_2.getText().equals("")) {
+						JOptionPane.showMessageDialog(getParent(), "포인트를 입력해주세요");
+					}
+
 				}
+<<<<<<< HEAD
 
 				catch (NumberFormatException e1) {
 					e1.printStackTrace();
 				}
+=======
+>>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 			}
 
+<<<<<<< HEAD
 			else if (textField.getText().equals("")) {
 				JOptionPane.showMessageDialog(getParent(), "휴대폰 번호를 입력해주세요.");
 			} else if (textField_2.getText().equals("")) {
@@ -227,6 +252,8 @@ public class MemOrder extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(getParent(), "사용포인트가 결제금액보다 큽니다." + getSum() + "이하로 사용포인트를 설정해주세요.");
 			}
 
+=======
+>>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 		}
 
 		if (e.getActionCommand().equals("포인트 미사용 결제"))
@@ -256,7 +283,10 @@ public class MemOrder extends JFrame implements ActionListener {
 
 			cm.setVisible(true);
 			this.setVisible(false);
+<<<<<<< HEAD
 			cm.showOrder();
+=======
+>>>>>>> branch 'master' of https://github.com/Kimseoungjoo/Cafekiosk.git
 
 		}
 
