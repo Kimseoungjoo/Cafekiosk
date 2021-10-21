@@ -59,19 +59,16 @@ public class CafeMenu extends JFrame implements ActionListener {
 
    private Vector<OrderDTO> vetList = new Vector<OrderDTO>(); // 결제 버튼 시 모든 주문 리스트 
    private Vector<CafeDTO> vetMenu; // 음료 버튼 시 담는 변수
-   
-   MemOrder mo = new MemOrder();
+   private MemOrder mo = new MemOrder();
    private CafeDAO dao;
    private CafeDTO dto;
    private OrderDTO ordto;
    private int sum=0;
    private boolean flag, selFlag;
-   private JButton btnSelect;
-   private JButton btnDelete;
+   private JButton btnSelect,btnDelete;
    private JLabel lblAllpay;
    private JPanel panel_6;
-   private JButton btnTurn;
-   private JButton btnPayment;
+   private JButton btnTurn,btnPayment;
    OrderDAO orderDAO = new OrderDAO();
 
    public static void main(String[] args) {

@@ -45,7 +45,7 @@ public class MemOrder extends JFrame implements ActionListener {
 	private String point;
 	private String tel;
 	CafeMenu cm = new CafeMenu();
-	private int sum;
+	private static int sum;
 
 	public int getSum() {
 		return this.sum;
@@ -228,7 +228,7 @@ public class MemOrder extends JFrame implements ActionListener {
 			} else if (Integer.parseInt(textField_1.getText()) < Integer.parseInt(textField_2.getText())) {
 				JOptionPane.showMessageDialog(getParent(), "사용포인트가 보유포인트보다 큽니다. 사용포인트를 다시 입력해주세요.");
 			} else if (getSum() < Integer.parseInt(textField_2.getText())) {
-				JOptionPane.showMessageDialog(getParent(), "사용포인트가 결제금액보다 큽니다." + getSum() + "이하로 사용포인트를 설정해주세요.");
+				JOptionPane.showMessageDialog(getParent(), "사용포인트가 결제금액보다 큽니다." + getSum()+ "이하로 사용포인트를 설정해주세요.");
 			}
 		}
 
