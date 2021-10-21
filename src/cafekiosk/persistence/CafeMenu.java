@@ -21,8 +21,6 @@ import java.awt.Color;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
@@ -60,15 +58,19 @@ public class CafeMenu extends JFrame implements ActionListener {
    private Vector<OrderDTO> vetList = new Vector<OrderDTO>(); // 결제 버튼 시 모든 주문 리스트 
    private Vector<CafeDTO> vetMenu; // 음료 버튼 시 담는 변수
    private CafeDAO dao = new CafeDAO();
+   
+   MemOrder mo = new MemOrder();
    private CafeDTO dto;
    private OrderDTO ordto;
    private int sum=0;
    private boolean flag, selFlag;
-   private JButton btnSelect,btnDelete;
+   private JButton btnSelect;
+   private JButton btnDelete;
    private JLabel lblAllpay;
    private JPanel panel_6;
    private JButton btnTurn,btnPayment;
    OrderDAO orderDAO = new OrderDAO();
+
    public static void main(String[] args) {
       EventQueue.invokeLater(new Runnable() {
          public void run() {
@@ -272,19 +274,6 @@ public class CafeMenu extends JFrame implements ActionListener {
             
             panel_5.add(btnDelete);
       setSize(500, 700);
-      
-
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter() {
-	        @Override
-	        public void windowClosing(WindowEvent e) {
-	        	
-	        	
-	        	
-	           orderDAO.deleteOrderTBL();
-	           System.exit(0);
-	        }
-	    });
    }
 
    // 메뉴 버튼 이벤트시 메뉴창 띄우는 메소드 불러오기
