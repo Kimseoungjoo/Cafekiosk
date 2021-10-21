@@ -259,6 +259,7 @@ public class CafeMenu extends JFrame implements ActionListener {
             			vetList.add(ordto);
             		}
             		
+            		
             		CafePayment payment = new CafePayment();
             		payment.setVisible(true);
             		setVisible(false);
