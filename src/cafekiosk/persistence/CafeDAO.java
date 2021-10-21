@@ -145,7 +145,7 @@ public class CafeDAO {
 		try {
 			con = getConnection();
 
-			String sql = "insert into orderTBL values(?,?,?,?)";
+			String sql = "insert into orderTBL values(?,?,?,?,sysdate)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, dto.getNo());
 				pstmt.setString(2, dto.getName());

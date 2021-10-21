@@ -260,7 +260,6 @@ public class CafeMenu extends JFrame implements ActionListener {
             		}
             		
             		mo.setSum(sum);
-            		
             		CafePayment payment = new CafePayment();
             		payment.setVisible(true);
             		setVisible(false);

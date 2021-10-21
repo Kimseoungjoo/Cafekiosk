@@ -44,6 +44,9 @@ public class CafeMain extends JFrame implements ActionListener {
 
 	
 	public CafeMain() {
+		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
+		Font btnFont = new Font("맑은 고딕", Font.BOLD, 18); // 버튼 폰트 종류, 크기
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 550);
 		contentPane = new JPanel();
@@ -57,16 +60,16 @@ public class CafeMain extends JFrame implements ActionListener {
 		panelBottom.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnNewUser = new JButton("회원가입");
-		btnNewUser.setBackground(new Color(191, 160, 237));
+		btnNewUser.setBackground(btnBgColor);
 		btnNewUser.setForeground(Color.WHITE);
-		btnNewUser.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btnNewUser.setFont(btnFont);
 		btnNewUser.addActionListener(this);
 		panelBottom.add(btnNewUser);
 		
 		JButton btnOrder = new JButton("주문");
-		btnOrder.setBackground(new Color(191, 160, 237));
+		btnOrder.setBackground(btnBgColor);
 		btnOrder.setForeground(Color.WHITE);
-		btnOrder.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btnOrder.setFont(btnFont);
 		btnOrder.addActionListener(this);
 		panelBottom.add(btnOrder);
 		
@@ -74,6 +77,11 @@ public class CafeMain extends JFrame implements ActionListener {
 		panelImg.setBackground(Color.WHITE);
 		contentPane.add(panelImg, BorderLayout.CENTER);
 		panelImg.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		
+		/*
+		 * 이미지 크기 조절 참조 링크 :
+		 * https://velog.io/@yu-jin-song/JAVA-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%83%9D%EC%84%B1-%EB%B0%8F-%ED%81%AC%EA%B8%B0-%EC%A1%B0%EC%A0%88
+		 */
 		
 		JLabel lblMainImg = new JLabel(""); // 라벨 생성
 		lblMainImg.setHorizontalAlignment(SwingConstants.CENTER);

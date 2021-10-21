@@ -9,10 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import cafekiosk.domain.CafeDTO;
+import cafekiosk.domain.OrderDTO;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ import cafekiosk.persistence.CafeDAO;
 import cafekiosk.persistence.CafeMenu;
 import cafekiosk.persistence.OrderDAO;
 import cafekiosk.persistence.PointDAO;
+//import jdk.internal.misc.FileSystemOption;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,6 +42,16 @@ public class MemOrder extends JFrame implements ActionListener {
 	private JTextField textField_2;
 	private String point;
 	private String tel;
+	private int sum;
+	Vector<OrderDTO> dasd = new Vector<OrderDTO>(); 
+	
+
+	
+	
+	public void setSum(int sum) {
+		this.sum = sum;
+	
+	}
 
 	public String getPoint() {
 		return point;
@@ -55,6 +68,7 @@ public class MemOrder extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					MemOrder frame = new MemOrder();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -156,12 +170,14 @@ public class MemOrder extends JFrame implements ActionListener {
 
 		if (e.getActionCommand().equals("포인트 사용 결제")) {
 
-			if (!textField_2.getText().equals("")/*&&
-					
-				Integer.parseInt(textField_2.getText())>Integer.parseInt(textField_1.getText())*/
-					) {
+			try {
 
-				try {
+				if (!textField_2.getText().equals("") )/*&&
+
+						Integer.parseInt(textField_2.getText()) > Integer.parseInt(textField_1.getText()))*/ {
+					
+					System.out.println(sum);
+					
 
 					tel = textField.getText();
 					point = textField_2.getText();
@@ -170,21 +186,23 @@ public class MemOrder extends JFrame implements ActionListener {
 
 					paydao.insertPoint(tel, Integer.parseInt(point));
 
-					MemPayment mp = new MemPayment();
+					MemPayment mp = new MemPayment();					
+//					mp.setTel(tel);
+//					mp.setUsePoint(point);
+					
 					mp.setVisible(true);
 					this.setVisible(false);
-
-				} catch (NumberFormatException e1) {
-
-					if (textField.getText().equals("")) {
-						JOptionPane.showMessageDialog(getParent(), "휴대폰 번호를 입력해주세요");
-					} else if(textField_2.getText().equals("")) {
-						JOptionPane.showMessageDialog(getParent(), "포인트를 입력해주세요");
-					}
-
 				}
-			}
 
+			} catch (NumberFormatException e1) {
+
+				if (textField.getText().equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "휴대폰 번호를 입력해주세요");
+				} else if (textField_2.getText().equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "포인트를 입력해주세요");
+				}
+
+			}
 		}
 
 		if (e.getActionCommand().equals("포인트 미사용 결제")) {
@@ -213,9 +231,15 @@ public class MemOrder extends JFrame implements ActionListener {
 			CafeMenu cm = new CafeMenu();
 			cm.setVisible(true);
 			this.setVisible(false);
+			
+			
+			
+			
 
 		}
 
 	}
+
+	
 
 }
