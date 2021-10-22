@@ -16,6 +16,17 @@ import java.awt.Font;
 public class CafePayment extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
+	private int sum;
+	
+	
+
+	public int getSum() {
+		return sum;
+	}
+
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
 
 	/**
 	 * Launch the application.
@@ -67,9 +78,11 @@ public class CafePayment extends JFrame implements ActionListener {
 		if (cmd.equals("회원주문")) {
 			
 			MemOrder mo = new MemOrder();
+			mo.setSum(sum);
 			mo.setVisible(true);
 			this.setVisible(false);
 		} else if (cmd.equals("비회원주문")) {
+			
 			UnmemPayment up = new UnmemPayment();
 			up.setVisible(true);
 			this.setVisible(false);

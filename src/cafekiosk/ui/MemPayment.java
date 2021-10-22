@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import cafekiosk.domain.OrderDTO;
 import cafekiosk.domain.PointDTO;
 import cafekiosk.domain.UserDTO;
+import cafekiosk.persistence.CafeDAO;
 import cafekiosk.persistence.CafeMenu;
 import cafekiosk.persistence.OrderDAO;
 import cafekiosk.persistence.PointDAO;
@@ -48,6 +49,7 @@ public class MemPayment extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_7;
 	private JLabel total;
 	int sum;
+	CafeDAO dao = new CafeDAO();
 
 	private String tel;
 //	private String usePoint;
@@ -161,9 +163,9 @@ public class MemPayment extends JFrame implements ActionListener {
 		point = pointDTO.getPoint();
 
 		lblNewLabel_4.setText(point + "원");
-		
-		if(sum<point) {
-			
+
+		if (sum < point) {
+
 		}
 
 		lblNewLabel_6.setText(sum - point + "원");
@@ -179,15 +181,15 @@ public class MemPayment extends JFrame implements ActionListener {
 		btnNewButton_1 = new JButton("취소");
 		btnNewButton_1.addActionListener(this);
 		panel1.add(btnNewButton_1);
-		
+
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
-	        @Override
-	        public void windowClosing(WindowEvent e) {
-	           orderDAO.deleteOrderTBL();
-	           System.exit(0);
-	        }
-	    });
+			@Override
+			public void windowClosing(WindowEvent e) {
+				orderDAO.deleteOrderTBL();
+				System.exit(0);
+			}
+		});
 
 	}
 
@@ -224,30 +226,37 @@ public class MemPayment extends JFrame implements ActionListener {
 			pointDAO.plusPoint(pointDTO.getTel(), plusPoint);
 			pointDAO.minusPoint(pointDTO.getTel(), point);
 
-			orderDAO.deleteOrderTBL();
-			pointDAO.deletePointTBL();
+			if (!orderDAO.payOrder().isEmpty()) {
 
-			Object[] options = { "OK" };
-			int n = JOptionPane.showOptionDialog(getParent(), "카드를 넣어주세요", "결제창", JOptionPane.PLAIN_MESSAGE,
-					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
-			if (n == 0) {
-				CafeMain cm = new CafeMain();
-				cm.setVisible(true);
-				setVisible(false);
+				for (OrderDTO dto : orderDAO.payOrder()) {
+					dao.inOrderList(dto);
+				}
 			}
+				orderDAO.deleteOrderTBL();
+				pointDAO.deletePointTBL();
 
-		} else {
-			
-			pointDAO.deletePointTBL();
-			CafeMenu cm = new CafeMenu();
-			cm.setVisible(true);
-			this.setVisible(false);
-			cm.showOrder();
-			orderDAO.deleteOrderTBL();
-			
+				Object[] options = { "OK" };
+				int n = JOptionPane.showOptionDialog(getParent(), "카드를 넣어주세요", "결제창", JOptionPane.PLAIN_MESSAGE,
+						JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
+				if (n == 0) {
+					CafeMain cm = new CafeMain();
+					cm.setVisible(true);
+					setVisible(false);
+				}
+
+			 
+
+			}else {
+
+				pointDAO.deletePointTBL();
+				
+				CafeMenu cm = new CafeMenu();
+				cm.setVisible(true);
+				this.setVisible(false);
+				cm.showOrder();
+				orderDAO.deleteOrderTBL();
 		}
-	}
 
+	}
 }

@@ -145,7 +145,7 @@ public class CafeDAO {
 		try {
 			con = getConnection();
 
-			String sql = "insert into orderTBL values(?,?,?,?,sysdate)";
+			String sql = "insert into orderTBL values(?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, dto.getNo());
 				pstmt.setString(2, dto.getName());
@@ -156,6 +156,35 @@ public class CafeDAO {
 //			if (result > 0) {
 ////				flag = true;
 //			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				con.close();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+//		return flag;
+	}
+	public void inOrderList(OrderDTO dto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result =0;
+//		boolean flag = false;
+		try {
+			con = getConnection();
+			
+			String sql = "insert into odlistTBL values(?,?,?,?,sysdate)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getNo());
+			pstmt.setString(2, dto.getName());
+			pstmt.setInt(3, dto.getPrice());
+			pstmt.setInt(4, dto.getCount());
+			result = pstmt.executeUpdate();
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -196,30 +225,5 @@ public class CafeDAO {
 		return flag;
 	}
 
-//	public int orderSum() {
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		int sum = 0;
-//		try {
-//			con = getConnection();
-//			String sql = "select sum(price) from orderTBL";
-//			pstmt = con.prepareStatement(sql);
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				sum = rs.getInt("sum(price)");
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//
-//			} catch (Exception e2) {
-//				e2.printStackTrace();
-//			}
-//		}
-//
-//		return sum;
-//	}
 
 }

@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.OrderDTO;
 import cafekiosk.domain.PointDTO;
+import cafekiosk.persistence.CafeDAO;
 import cafekiosk.persistence.CafeMenu;
 import cafekiosk.persistence.OrderDAO;
 import cafekiosk.persistence.PointDAO;
@@ -45,6 +46,7 @@ public class MemPaymentNotPoint extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_7;
 	private JLabel total;
+	CafeDAO dao = new CafeDAO();
 	PointDAO pointDAO = new PointDAO();
 	int sum;
 	int point;
@@ -170,7 +172,12 @@ public class MemPaymentNotPoint extends JFrame implements ActionListener {
 
 		if (cmd.equals("결제")) {
 			pointDAO.plusPoint(pointDTO.getTel(), plusPoint);
+			if (!orderDAO.payOrder().isEmpty()) {
 
+				for (OrderDTO dto : orderDAO.payOrder()) {
+					dao.inOrderList(dto);					
+				}
+			}
 			orderDAO.deleteOrderTBL();
 			pointDAO.deletePointTBL();
 						
@@ -197,3 +204,4 @@ public class MemPaymentNotPoint extends JFrame implements ActionListener {
 	}
 
 }
+	

@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import cafekiosk.domain.OrderDTO;
+import cafekiosk.persistence.CafeDAO;
 import cafekiosk.persistence.CafeMenu;
 import cafekiosk.persistence.OrderDAO;
 
@@ -33,6 +34,7 @@ public class UnmemPayment extends JFrame implements ActionListener {
 	private JTable table;
 	DefaultTableModel model;
 	OrderDAO orderDAO = new OrderDAO();
+	CafeDAO dao = new CafeDAO();
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
@@ -162,6 +164,12 @@ public class UnmemPayment extends JFrame implements ActionListener {
 	String cmd= e.getActionCommand();
 	
 	if(cmd.equals("결제")) {
+		if (!orderDAO.payOrder().isEmpty()) {
+
+			for (OrderDTO dto : orderDAO.payOrder()) {
+				dao.inOrderList(dto);					
+			}
+		}
 		orderDAO.deleteOrderTBL();
 	
 		Object[] options = { "OK" };

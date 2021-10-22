@@ -39,22 +39,22 @@ public class MemOrder extends JFrame implements ActionListener {
 	JLabel name;
 	UserDTO dto;
 	CafeDAO dao;
-	PointDAO pointDAO;
+	PointDAO pointDAO = new PointDAO();
 	OrderDAO odao = new OrderDAO();
 	private JTextField textField_2;
 	private String point;
 	private String tel;
-	CafeMenu cm = new CafeMenu();
-	private static int sum;
+
+	private int sum;
 
 	public int getSum() {
+		
 		return this.sum;
 	}
 
 	public void setSum(int sum) {
-		this.sum = sum;
-		
-		
+		System.out.println("MemOrder :   "+sum);
+		this.sum = sum;	
 	}
 	
 
@@ -72,21 +72,21 @@ public class MemOrder extends JFrame implements ActionListener {
 		this.point = point;
 	}
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MemOrder frame = new MemOrder();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					MemOrder frame = new MemOrder();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -158,6 +158,7 @@ public class MemOrder extends JFrame implements ActionListener {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				odao.deleteOrderTBL();
+				pointDAO.deletePointTBL();
 				System.exit(0);
 			}
 		});
@@ -190,7 +191,8 @@ public class MemOrder extends JFrame implements ActionListener {
 		if (e.getActionCommand().equals("포인트 사용 결제")) {
 
 			if (!textField_2.getText().equals("")
-					&& Integer.parseInt(textField_1.getText()) >= Integer.parseInt(textField_2.getText())) {
+					&& Integer.parseInt(textField_1.getText()) >= Integer.parseInt(textField_2.getText())
+					&& getSum() >= Integer.parseInt(textField_2.getText())) {
 
 				try {
 
@@ -241,7 +243,7 @@ public class MemOrder extends JFrame implements ActionListener {
 
 				tel = textField.getText();
 
-				pointDAO = new PointDAO();
+				
 
 				pointDAO.insertPoint(tel, 0);
 
@@ -256,7 +258,7 @@ public class MemOrder extends JFrame implements ActionListener {
 
 		if (e.getActionCommand().equals("이전")) {
 			
-
+			CafeMenu cm = new CafeMenu();
 			cm.setVisible(true);
 			this.setVisible(false);
 
