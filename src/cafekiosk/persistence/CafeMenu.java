@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.Toolkit;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -69,6 +71,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 	private JPanel panel_6;
 	private JButton btnTurn, btnPayment;
 	OrderDAO orderDAO = new OrderDAO();
+	
+	private Color btnMenuColor = new Color(128, 65, 217); // 메뉴 버튼 배경색
+	private Font btnMenuFont = new Font("맑은 고딕", Font.BOLD, 14); // 메뉴 버튼 폰트 종류, 크기
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -87,46 +92,63 @@ public class CafeMenu extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public CafeMenu() {
-		setTitle("메뉴창~ ");
+		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
+		Color bgColor = new Color(245, 245, 245); // 레이아웃 배경색
+		Font btnFont = new Font("맑은 고딕", Font.BOLD, 18); // 버튼 폰트 종류, 크기
+		Font lblFont = new Font("맑은 고딕", Font.BOLD, 15); // 라벨 폰트 종류, 크기
+		
+		setTitle("솔 카페"); // 창 제목
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CafeMain.class.getResource("/image/bubble-tea.png"))); // 창 아이콘
+		setBounds(100, 100, 500, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.YELLOW);
+		contentPane.setBackground(bgColor);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel(); // 메뉴창 틀(패널)
-		panel.setBackground(Color.YELLOW);
+		panel.setBackground(bgColor);
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 1, 1));
 
 		btnCoffee = new JButton("커피"); // 커피 메뉴
-		btnCoffee.setBackground(Color.ORANGE);
+		btnCoffee.setBackground(btnMenuColor);
+		btnCoffee.setForeground(Color.WHITE);
+		btnCoffee.setFont(btnMenuFont);
 		btnCoffee.setActionCommand("COFFEE");
 		btnCoffee.addActionListener(this);
 		panel.add(btnCoffee);// 메뉴창 패널에 추가
 
 		btnAde = new JButton("에이드"); // 에이드 메뉴
-		btnAde.setBackground(Color.ORANGE);
+		btnAde.setBackground(btnMenuColor);
+		btnAde.setForeground(Color.WHITE);
+		btnAde.setFont(btnMenuFont);
 		btnAde.setActionCommand("ADE");
 		btnAde.addActionListener(this);
 		panel.add(btnAde);
 
 		btnTea = new JButton("티"); // 티 메뉴
-		btnTea.setBackground(Color.ORANGE);
+		btnTea.setBackground(btnMenuColor);
+		btnTea.setForeground(Color.WHITE);
+		btnTea.setFont(btnMenuFont);
 		btnTea.setActionCommand("TEA");
 		btnTea.addActionListener(this);
 		panel.add(btnTea);
 
 		btnDessert = new JButton("디저트"); // 디저트 메뉴
-		btnDessert.setBackground(Color.ORANGE);
+		btnDessert.setBackground(btnMenuColor);
+		btnDessert.setForeground(Color.WHITE);
+		btnDessert.setFont(btnMenuFont);
 		btnDessert.setActionCommand("DESSERT");
 		btnDessert.addActionListener(this);
 		panel.add(btnDessert);
 
 		btnEtc = new JButton("기타"); // 기타 메뉴
-		btnEtc.setBackground(Color.ORANGE);
+		btnEtc.setBackground(btnMenuColor);
+		btnEtc.setForeground(Color.WHITE);
+		btnEtc.setFont(btnMenuFont);
 		btnEtc.setActionCommand("ETC");
 		btnEtc.addActionListener(this);
 		panel.add(btnEtc);
@@ -138,7 +160,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 
 		// 주문리스트(panel) / 수량(panel) / layout(gridbag)
 		panel_4 = new JPanel();
-		panel_4.setBackground(Color.WHITE);
+		panel_4.setBackground(bgColor);
 		panel_4.setBorder(new TitledBorder(null, "주문리스트", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(panel_4, BorderLayout.SOUTH);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
@@ -159,12 +181,13 @@ public class CafeMenu extends JFrame implements ActionListener {
 		gbc_scrollPane1.gridy = 0;
 		panel_4.add(scrollPane1, gbc_scrollPane1);
 		table = new JTable(model);
-		table.setBackground(Color.yellow);
+		table.setBackground(bgColor);
 //            table.setBackground(Color.WHITE);
 		table.setBorder(null);
 		scrollPane1.setViewportView(table);
+		scrollPane1.setBackground(bgColor);
 		panel_5 = new JPanel();
-		panel_5.setBackground(Color.YELLOW);
+		panel_5.setBackground(bgColor);
 
 		panel_5.setBorder(new TitledBorder(null, "수량", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
@@ -182,6 +205,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 
 		// 주문리스트 밑에 라벨
 		lblAllpay = new JLabel("총 금액");
+		lblAllpay.setFont(lblFont);
 		GridBagConstraints gbc_lblAllpay = new GridBagConstraints();
 		gbc_lblAllpay.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAllpay.gridx = 0;
@@ -189,7 +213,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 		panel_4.add(lblAllpay, gbc_lblAllpay);
 
 		panel_6 = new JPanel();
-		panel_6.setBackground(Color.YELLOW);
+		panel_6.setBackground(bgColor);
 		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 		gbc_panel_6.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_6.fill = GridBagConstraints.BOTH;
@@ -198,6 +222,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 		panel_4.add(panel_6, gbc_panel_6);
 
 		btnTurn = new JButton("이전");
+		btnTurn.setBackground(btnBgColor);
+		btnTurn.setForeground(Color.WHITE);
+		btnTurn.setFont(btnFont);
 		panel_6.add(btnTurn);
 		btnTurn.addActionListener(new ActionListener() {
 
@@ -211,6 +238,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 
 		// 삭제 EVENT 발생시 DB(orderTBL) / 주문리스트(panel) 테이블 데이터 삭제
 		btnDelete = new JButton("삭제");
+		btnDelete.setBackground(btnMenuColor);
+		btnDelete.setForeground(Color.WHITE);
+		btnDelete.setFont(btnMenuFont);
 		btnDelete.addActionListener(new ActionListener() {
 
 			@Override
@@ -224,6 +254,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 		});
 		// 결제하기 버튼 추가 / 이벤트(CafePayMent 클래스로)
 		btnPayment = new JButton("결제하기");
+		btnPayment.setBackground(btnBgColor);
+		btnPayment.setForeground(Color.WHITE);
+		btnPayment.setFont(btnFont);
 		panel_6.add(btnPayment);
 
 		// 결제 창으로
@@ -382,6 +415,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 	// 수량 줄이는 메소드
 	public JButton disCountButton() {
 		JButton btn = new JButton("-");
+		btn.setBackground(btnMenuColor);
+		btn.setForeground(Color.WHITE);
+		btn.setFont(btnMenuFont);
 		btn.addActionListener(new ActionListener() {
 
 			@Override
@@ -407,6 +443,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 // 수량 늘리는 메소드
 	public JButton plusCountButton() {
 		JButton btn = new JButton("+");
+		btn.setBackground(btnMenuColor);
+		btn.setForeground(Color.WHITE);
+		btn.setFont(btnMenuFont);
 		btn.addActionListener(new ActionListener() {
 
 			@Override
@@ -460,7 +499,9 @@ public class CafeMenu extends JFrame implements ActionListener {
 		btnespresso.setActionCommand("에스프레소");
 		btnespresso.addActionListener(this);
 
+		pack();
 		return panel_2;
+		
 	}
 
 	public JPanel TeaMenuPanel() {
@@ -519,7 +560,7 @@ public class CafeMenu extends JFrame implements ActionListener {
 					* Integer.parseInt(table.getValueAt(i, 2).toString());
 
 		}
-		lblAllpay.setText("총 금액 :" + sum);
+		lblAllpay.setText("총 금액 : " + sum);
 		this.sum=sum;
 	}
 }

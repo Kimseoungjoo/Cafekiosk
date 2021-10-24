@@ -11,6 +11,7 @@ import cafekiosk.persistence.CafeMenu;
 
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,8 +27,6 @@ import java.awt.Color;
 public class CafeMain extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private boolean flag = false;
-
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -44,6 +43,8 @@ public class CafeMain extends JFrame implements ActionListener {
 
 	
 	public CafeMain() {
+		setTitle("솔 카페"); // 창 제목
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CafeMain.class.getResource("/image/bubble-tea.png"))); // 창 아이콘
 		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
 		Font btnFont = new Font("맑은 고딕", Font.BOLD, 18); // 버튼 폰트 종류, 크기
 		
@@ -53,7 +54,6 @@ public class CafeMain extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		setTitle("주문");
 		
 		JPanel panelBottom = new JPanel();
 		contentPane.add(panelBottom, BorderLayout.SOUTH);

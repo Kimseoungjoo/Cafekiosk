@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -54,6 +55,9 @@ public class CafeNewUser extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public CafeNewUser() {
+		setTitle("솔 카페"); // 창 제목
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CafeMain.class.getResource("/image/bubble-tea.png"))); // 창 아이콘
+		
 		Color bgColor = new Color(245, 245, 245); // 레이아웃 배경 색
 		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
 		Color btnTelCertiColor = new Color(128, 65, 217); // 전화번호 인증 버튼 배경 색
@@ -132,7 +136,7 @@ public class CafeNewUser extends JFrame implements ActionListener {
 		btnTelCerti.setForeground(Color.WHITE);
 		btnTelCerti.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		btnTelCerti.addActionListener(this);
-		btnTelCerti.setBounds(210, 250, 115, 25); // btnTelCerti 위치 및 크기
+		btnTelCerti.setBounds(210, 240, 115, 25); // btnTelCerti 위치 및 크기
 		panelMain.add(btnTelCerti);
 //		panelTel.add(btnTelCerti);
 	}

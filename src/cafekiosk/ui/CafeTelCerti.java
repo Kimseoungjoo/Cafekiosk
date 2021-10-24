@@ -3,6 +3,7 @@ package cafekiosk.ui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -53,6 +54,9 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 	 * Create the dialog.
 	 */
 	public CafeTelCerti() {
+		setTitle("솔 카페"); // 창 제목
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CafeMain.class.getResource("/image/bubble-tea.png"))); // 창 아이콘
+		
 		Color bgColor = new Color(245, 245, 245); // 레이아웃 배경 색
 		Color btnBgColor = new Color(191, 160, 237); // 버튼 배경 색
 		Font btnFont = new Font("맑은 고딕", Font.BOLD, 18); // 버튼 폰트 종류, 크기
@@ -98,7 +102,7 @@ public class CafeTelCerti extends JDialog implements ActionListener {
 		btnShowCertiNum.setBounds(80, 60, 100, 30); // 화면에서의 위치
 		btnShowCertiNum.setBackground(new Color(191, 160, 237)); // 버튼 배경색
 		btnShowCertiNum.setForeground(Color.WHITE); // 글자색
-		btnShowCertiNum.setFont(new Font("맑은 고딕", Font.BOLD, 12)); // 글자 폰트 종류, 크기
+		btnShowCertiNum.setFont(new Font("맑은 고딕", Font.BOLD, 14)); // 글자 폰트 종류, 크기
 		btnShowCertiNum.addActionListener(this);
 		panel.add(btnShowCertiNum);
 
